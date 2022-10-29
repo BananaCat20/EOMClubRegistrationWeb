@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Club Registration</title>
+<style> img {border-radius: 50%;}</style>
+</head>
+<body>
+    <h1><a>Club Registration</a></h1>
+
+		<div>
+		      <h3><a><img th:src="*{loginImageLink}" style="width:25px"/> <span th:text="*{loginName}" style="color:blue">user</span>
+		      <br/>
+		      <span th:text="*{loginEmail}" style="color:blue">user</span></a></h3>
+		</div>
+
+		<form action="/register_form">
+		   <input type="submit" value="Register a new club" /><br/>
+		</form>
+
+		<form th:action="@{logout}" method="post">
+		    <input type="submit" value="Sign out"/><br/>
+		</form>
+</body>
+</html>
