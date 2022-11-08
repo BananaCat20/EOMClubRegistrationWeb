@@ -2,23 +2,29 @@ package cs.project.eom.ClubRegistrationWeb;
 
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class AppController {
+public class AppController implements ErrorController {
 	private RegisterForm registerForm;
 	private String loginName;
 	private String loginEmail;
@@ -53,7 +59,7 @@ public class AppController {
 		}
     }
     @RequestMapping("/applicant_view")
-    public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
+    public String applicantGetLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
 
     	// Retrieve authentication user information
     	getAuthenticationInfo(authentication);
@@ -62,9 +68,12 @@ public class AppController {
     	model.addAttribute("loginName", getLoginName());
 	    model.addAttribute("loginEmail", getLoginEmail());
 	    model.addAttribute("loginImageLink", getLoginImageLink());
-        return "applicant_view";
+	    return "applicant_view";
     }
-
+    @GetMapping("/loginAdmin")
+    public String getAdminLoginPage() {
+        return "loginAdmin";
+    }
     @RequestMapping("/admin_view")
     public ModelAndView adminView() {
         ModelAndView modelAndView = new ModelAndView();
@@ -85,6 +94,28 @@ public class AppController {
         return "register_form";
     }
 
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        
+        if (status != null) {
+            Integer statusCode = Integer.valueOf(status.toString());
+        
+            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+                return "error-404";
+            }
+            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+                return "error-500";
+            }
+        }
+        return "error";
+    }
+
+    @GetMapping("/403")
+    public String getAccessDeniedPage() {
+        return "403";
+    }
+    
 	public RegisterForm getRegisterForm() {
 		return registerForm;
 	}

@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class RegisterForm implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8704518268389052488L;
 	public enum ClubNames {
 
 		RAINBOW_CLUB,

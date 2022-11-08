@@ -5,9 +5,7 @@
 <title>Admin Management</title>
 </head>
 <body>
-	<h4><a>Admin Management</a></h4>
-	<form th:action="@{logout}" method="post">
-    	<input type="submit" value="Sign out"/>
-	</form>
+	Welcome admin! <a th:href="@{/admin_logout}" >Logout</a>
 </body>
 </html>
+
