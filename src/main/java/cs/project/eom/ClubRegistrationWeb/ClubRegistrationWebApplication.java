@@ -12,5 +12,4 @@ public class ClubRegistrationWebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ClubRegistrationWebApplication.class, args);
 	}
-
 }
