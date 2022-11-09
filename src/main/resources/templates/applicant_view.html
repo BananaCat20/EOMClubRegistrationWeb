@@ -2,8 +2,15 @@
 <html xmlns:th="http:/www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
-<title>Club Registration</title>
-<style> img {border-radius: 50%;}</style>
+<title>Applicant Page</title>
+<style>
+img {
+border-radius: 50%;
+}
+body {
+background-color: palegoldenrod;
+}
+</style>
 </head>
 <body>
     <h1><a>Club Registration</a></h1>
@@ -11,15 +18,15 @@
 		<div>
 		      <h3><a><img th:src="*{loginImageLink}" style="width:25px"/> <span th:text="*{loginName}" style="color:blue">user</span>
 		      <br/>
-		      <span th:text="*{loginEmail}" style="color:blue">user</span></a></h3>
+		      <span th:text="*{loginEmail}" style="color: green">user</span></a></h3>
 		</div>
 
 		<form action="/register_form">
-		   <input type="submit" value="Register a new club" /><br/>
+		   <input type="submit" value="Register A New Club" /><br/>
 		</form>
 
 		<form th:action="@{logout}" method="post">
-		    <input type="submit" value="Sign out"/><br/>
+		    <input type="submit" value="Sign Out"/><br/>
 		</form>
 </body>
 </html>

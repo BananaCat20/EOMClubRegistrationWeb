@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http:/www.thymeleaf.org">
 <head>
+<style>
+body {
+background-color: mediumseagreen;
+}
+p {
+font-size: 35px;
+}
+a {
+font-size: 25px;
+}
+</style>
 <meta charset="UTF-8">
 <title>Admin Management</title>
 </head>
 <body>
-	Welcome admin! <a th:href="@{/admin_logout}" >Logout</a>
+	<p>Welcome admin!</p>
+	<a th:href="@{/admin_logout}" >Logout</a>
 </body>
 </html>
 

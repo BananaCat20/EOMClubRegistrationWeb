@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<style>
+body {
+background-image: linear-gradient(30deg, khaki, forestgreen);
+}
+</style>
 <meta charset="ISO-8859-1">
 <title>Club Registration Form</title>
 </head>
 <body>
 <!--https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-radio-button-->
-<div class="container">
-    <h4><a href="/applicant_view">Go back</a></h4>
-    <form action="#" th:action="@{/register}" method="post" th:object="${registerForm}">
+<div class = "container">
+    <h4><a href = "/applicant_view">Go Back</a></h4>
+    <form action = "#" th:action="@{/register}" method="post" th:object="${registerForm}">
     <h1>EOM Club Registration Form For <span th:text="*{loginName}" style="color:blue">user</span></h1>
-        <div class="form-group">
+        <div class = "form-group">
             <label>Name of Club at Earl of March</label>
-            <div th:each="clubName : ${T(cs.project.eom.ClubRegistrationWeb.RegisterForm.ClubNames).values()}">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" required th:field="*{clubNameOption}" th:value="${clubName}" class="custom-control-input">
-                    <label class="custom-control-label" th:for="${#ids.prev('clubNameOption')}" th:text="${clubName}">Club Name</label>
+            <div th:each = "clubName : ${T(cs.project.eom.ClubRegistrationWeb.RegisterForm.ClubNames).values()}">
+                <div class = "custom-control custom-radio custom-control-inline">
+                    <input type = "radio" required th:field="*{clubNameOption}" th:value="${clubName}" class="custom-control-input">
+                    <label class = "custom-control-label" th:for="${#ids.prev('clubNameOption')}" th:text="${clubName}">Club Name</label>
                 </div>
             </div>
         </div>
 
-		<div class="form-group">
+		<div class = "form-group">
 		    <br/><br/>
 	        <label>Names of all Club Executive Team Members</label><br/>
-	        <input type="text" required th:field="*{clubExecutiveTeamMembersNames} " size="50"/><br/><br/>
+	        <input type = "text" required th:field="*{clubExecutiveTeamMembersNames} " size="50"/><br/><br/>
 
 	        <label>School Emails of all Club Executive Team Members</label><br/>
-	        <input type="text" required th:field="*{clubExecutiveTeamMembersEmails}" size="50"/><br/><br/>
+	        <input type = "text" required th:field="*{clubExecutiveTeamMembersEmails}" size="50"/><br/><br/>
 
 	        <label>Name(s) of Club President(s)</label><br/>
 	        <input type="text" required th:field="*{clubPresidentsNames}" size="50"/><br/><br/>
@@ -71,7 +76,7 @@
         <input type="submit">
         <input type="reset">
     </form>
-    <h4><a href="/applicant_view">Go back</a></h4>
+    <h4><a href="/applicant_view">Go Back</a></h4>
 </div>
 </body>
 </html>

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http:/www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+<style>
+body {
+background-color: seagreen;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
+<title>Admin Login</title>
 </head>
 <body>
 
-    <p>Admin login page</p>
+    <p>Admin Login Page</p>
     <form name="f" action="admin_login" method="POST">
 
         <table>
             <tr>
-                <td>User:</td>
+                <td>Username:</td>
                 <td><input type="text" name="username" /></td>
             </tr>
             <tr>
@@ -19,13 +24,13 @@
                 <td><input type="password" name="password" /></td>
             </tr>
             <tr>
-                <td><input name="submit" type="submit" value="submit" /></td>
+                <td><input name="Submit" type="Submit" value="Submit" /></td>
             </tr>
         </table>
 
     </form>
 
-    <p th:if="${param.error}">Login failed!</p>
+    <p th:if="${param.error}">Login failed</p>
 
 </body>
 </html>
