@@ -1,5 +1,6 @@
 package cs.project.eom.ClubRegistrationWeb;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -32,6 +33,8 @@ public class AppController implements ErrorController {
 
 	@Autowired
 	private OAuth2AuthorizedClientService authorizedClientService;
+    @Autowired
+    private UserRepository userRepo;
 
     @RequestMapping(value={"/", "/welcome"})
     public ModelAndView welcome() {
@@ -63,11 +66,33 @@ public class AppController implements ErrorController {
 
     	// Retrieve authentication user information
     	getAuthenticationInfo(authentication);
-	   
+
     	// Set attributes for thymeleaf template
     	model.addAttribute("loginName", getLoginName());
 	    model.addAttribute("loginEmail", getLoginEmail());
 	    model.addAttribute("loginImageLink", getLoginImageLink());
+
+    	// Register user in database
+    	UserDto newUser = new UserDto();
+    	newUser.setEmail(getLoginEmail());
+    	newUser.setUserName(getLoginName());
+    	
+    	// Find all the users in the database
+    	List<UserDto> userList = userRepo.findAll();
+    	boolean found = false;
+    	
+    	// Find the newUser in the current user list
+    	for (UserDto user : userList) {
+    		if (user.getEmail().equals(newUser.getEmail())) {
+    			found = true;
+    		}
+    	}
+    	
+    	// If we cannot find the newUser, create this newUser in database 
+    	if (!found) {
+        	userRepo.save(newUser);
+    	}
+
 	    return "applicant_view";
     }
     @GetMapping("/loginAdmin")
