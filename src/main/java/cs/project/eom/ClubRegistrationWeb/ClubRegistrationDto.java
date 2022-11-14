@@ -15,12 +15,50 @@ public class ClubRegistrationDto {
     @Column(nullable = false)
     private String userEmail;
 
-    @Column(nullable = false)
-    private int clubNameOption;
+	public enum ClubNameOption {
+
+		RAINBOW_CLUB("Rainbow Club"),
+	    ICP_CLUB("International Certificate Program (ICP)"),
+	    IMPROVE_CLUB("Improve Club"),
+	    EARL_READS_BOOK_CLUB("Earl Reads Book Club"),
+	    LIONS_ROAR_NEWSPAPER_CLUB("Lion's Roar Newspaper"),
+	    ANIMAL_WELFARE_CLUB("Animal Welfare Club"),
+	    HOSA_CLUB("HOSA (Future Health Professionals)"),
+	    MEDLIFE_CLUB("MEDLIFE"),
+	    OTHER_CLUB("Other");
+	    public final String label;
+
+	    private ClubNameOption(String label) {
+	        this.label = label;
+	    }
+	    public String getLabel() {
+	    	return label;
+	    }
+	}
+    
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+    private ClubNameOption clubNameOption;
 
     @Column
     private String otherClubName;
-    
+
     @Column(nullable = false)
 	private String clubExecutiveTeamMembersNames;
 
@@ -74,11 +112,11 @@ public class ClubRegistrationDto {
 		this.id = id;
 	}
 
-	public int getClubNameOption() {
+	public ClubNameOption getClubNameOption() {
 		return clubNameOption;
 	}
 
-	public void setClubNameOption(int clubNameOption) {
+	public void setClubNameOption(ClubNameOption clubNameOption) {
 		this.clubNameOption = clubNameOption;
 	}
 

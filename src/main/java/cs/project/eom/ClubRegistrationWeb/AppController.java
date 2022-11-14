@@ -19,6 +19,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AppController implements ErrorController {
-	private RegisterForm registerForm;
+	private ClubRegistrationDto clubRegistrationDto;
 	private String loginName;
 	private String loginEmail;
 	private String loginImageLink;
@@ -112,10 +114,10 @@ public class AppController implements ErrorController {
     	// Retrieve authentication user information
     	getAuthenticationInfo(authentication);
 
-    	registerForm = new RegisterForm();
-    	registerForm.setLoginName(getLoginName());
-    	registerForm.setLoginEmail(getLoginEmail());
-	    model.addAttribute("registerForm", registerForm);
+    	clubRegistrationDto = new ClubRegistrationDto();
+    	clubRegistrationDto.setUserName(getLoginName());
+    	clubRegistrationDto.setUserEmail(getLoginEmail());
+	    model.addAttribute("registrationDto", clubRegistrationDto);
         return "register_form";
     }
 
@@ -136,17 +138,23 @@ public class AppController implements ErrorController {
         return "error";
     }
 
+    @PostMapping("/action_register_new_form")
+    public String greetingSubmit(@ModelAttribute ClubRegistrationDto registerDto, Model model) {
+      model.addAttribute("registerDto", registerDto);
+      return "applicant_register_result";
+    }
+
     @GetMapping("/403")
     public String getAccessDeniedPage() {
         return "403";
     }
     
-	public RegisterForm getRegisterForm() {
-		return registerForm;
+	public ClubRegistrationDto getRegisterForm() {
+		return clubRegistrationDto;
 	}
 
-	public void setRegisterForm(RegisterForm registerForm) {
-		this.registerForm = registerForm;
+	public void setRegisterForm(ClubRegistrationDto clubRegistrationDto) {
+		this.clubRegistrationDto = clubRegistrationDto;
 	}
 
 	public String getLoginName() {

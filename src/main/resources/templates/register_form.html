@@ -13,16 +13,17 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
 <!--https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-radio-button-->
 <div class = "container">
     <h4><a href = "/applicant_view">Go Back</a></h4>
-    <form action = "#" th:action="@{/register}" method="post" th:object="${registerForm}">
-    <h1>EOM Club Registration Form For <span th:text="*{loginName}" style="color:blue">user</span></h1>
+    <form action = "#" th:action="@{/action_register_new_form}" method="post" th:object="${registrationDto}">
+    <h1>EOM Club Registration Form For <span th:text="*{userName}" style="color:blue">user</span></h1>
         <div class = "form-group">
             <label>Name of Club at Earl of March</label>
-            <div th:each = "clubName : ${T(cs.project.eom.ClubRegistrationWeb.RegisterForm.ClubNames).values()}">
+            <div th:each="clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">
                 <div class = "custom-control custom-radio custom-control-inline">
-                    <input type = "radio" required th:field="*{clubNameOption}" th:value="${clubName}" class="custom-control-input">
-                    <label class = "custom-control-label" th:for="${#ids.prev('clubNameOption')}" th:text="${clubName}">Club Name</label>
+                    <input type="radio" th:field="*{clubNameOption}" th:value="${clubName}" class="custom-control-input">
+                    <label class="custom-control-label" th:for="${#ids.prev('clubNameOption')}" th:text="${clubName.getLabel()}">ClubName</label>
                 </div>
             </div>
+            <input type = "text" th:field="*{otherClubName} " size="50"/>
         </div>
 
 		<div class = "form-group">
