@@ -1,5 +1,7 @@
 package cs.project.eom.ClubRegistrationWeb;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -35,22 +37,26 @@ public class ClubRegistrationDto {
 	    	return label;
 	    }
 	}
-    
-	public String getUserName() {
-		return userName;
+   
+	public enum ClubRegisterStatus {
+
+		SUBMITTED("Submitted"),
+	    APPROVLED("Approvled"),
+	    REFUSED("Refused");
+
+	    public final String label;
+
+	    private ClubRegisterStatus(String label) {
+	        this.label = label;
+	    }
+	    public String getLabel() {
+	    	return label;
+	    }
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+    private ClubRegisterStatus clubRegisterStatus;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -104,12 +110,54 @@ public class ClubRegistrationDto {
     @Column
 	private String note;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedDate;
+    
+    @PrePersist
+    protected void onCreate() {
+    	updatedDate = createdDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+    	updatedDate = new Date();
+    }
+ 
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public ClubRegisterStatus getClubRegisterStatus() {
+		return clubRegisterStatus;
+	}
+
+	public void setClubRegisterStatus(ClubRegisterStatus clubRegisterStatus) {
+		this.clubRegisterStatus = clubRegisterStatus;
 	}
 
 	public ClubNameOption getClubNameOption() {
@@ -246,6 +294,22 @@ public class ClubRegistrationDto {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 }

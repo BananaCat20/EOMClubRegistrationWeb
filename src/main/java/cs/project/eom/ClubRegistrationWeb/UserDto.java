@@ -1,5 +1,7 @@
 package cs.project.eom.ClubRegistrationWeb;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 // https://www.codejava.net/frameworks/spring-boot/user-registration-and-login-tutorial
@@ -42,5 +44,38 @@ public class UserDto {
 		this.userName = userName;
 	}
 
-     
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedDate;
+    
+    @PrePersist
+    protected void onCreate() {
+    	updatedDate = createdDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+    	updatedDate = new Date();
+    }
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+    
 }

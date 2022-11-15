@@ -37,6 +37,8 @@ public class AppController implements ErrorController {
 	private OAuth2AuthorizedClientService authorizedClientService;
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private ClubRegistrationRepository clubRegistrationRepo;
 
     @RequestMapping(value={"/", "/welcome"})
     public ModelAndView welcome() {
@@ -140,10 +142,16 @@ public class AppController implements ErrorController {
 
     @PostMapping("/action_register_new_form")
     public String greetingSubmit(@ModelAttribute ClubRegistrationDto registerDto, Model model) {
-      model.addAttribute("registerDto", registerDto);
+      
+      registerDto.setUserName(getLoginName());
+      registerDto.setUserEmail(getLoginEmail());
+      registerDto.setClubRegisterStatus(ClubRegistrationDto.ClubRegisterStatus.SUBMITTED);
+      ClubRegistrationDto registerResult = clubRegistrationRepo.save(registerDto);
+      model.addAttribute("registerResultDto", registerResult);
+      
       return "applicant_register_result";
     }
-
+ 
     @GetMapping("/403")
     public String getAccessDeniedPage() {
         return "403";
