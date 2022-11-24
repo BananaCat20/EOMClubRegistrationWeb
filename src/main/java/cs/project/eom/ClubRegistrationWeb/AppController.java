@@ -1,7 +1,9 @@
 package cs.project.eom.ClubRegistrationWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +19,11 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; 
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -29,6 +33,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AppController implements ErrorController {
 	private ClubRegistrationDto clubRegistrationDto;
+	private ArrayList<ClubRegistrationDto> currentRegList = new ArrayList<ClubRegistrationDto>();
+	private ArrayList<ClubRegistrationDto> allRegList = new ArrayList<ClubRegistrationDto>();
 	private String loginName;
 	private String loginEmail;
 	private String loginImageLink;
@@ -66,7 +72,7 @@ public class AppController implements ErrorController {
 		}
     }
     @RequestMapping("/applicant_view")
-    public String applicantGetLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
+    public String applicantView(Model model, OAuth2AuthenticationToken authentication) {
 
     	// Retrieve authentication user information
     	getAuthenticationInfo(authentication);
@@ -97,6 +103,9 @@ public class AppController implements ErrorController {
         	userRepo.save(newUser);
     	}
 
+    	// Find all the registrations with current user
+    	currentRegList = clubRegistrationRepo.findByUserEmailIs(newUser.getEmail());
+    	model.addAttribute("currentRegList", currentRegList);
 	    return "applicant_view";
     }
     @GetMapping("/loginAdmin")
@@ -104,10 +113,13 @@ public class AppController implements ErrorController {
         return "loginAdmin";
     }
     @RequestMapping("/admin_view")
-    public ModelAndView adminView() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin_view.html");
-        return modelAndView;
+    public String adminView(Model model) {
+    	
+        // Find all the registrations with current user
+    	allRegList = (ArrayList<ClubRegistrationDto>) clubRegistrationRepo.findAll();
+    	model.addAttribute("allRegList", allRegList);
+
+        return "admin_view";
     }
 
     @RequestMapping("/register_form")
@@ -141,17 +153,65 @@ public class AppController implements ErrorController {
     }
 
     @PostMapping("/action_register_new_form")
-    public String greetingSubmit(@ModelAttribute ClubRegistrationDto registerDto, Model model) {
+    public String actionRegisterNewForm(@ModelAttribute ClubRegistrationDto registerDto, Model model) {
       
       registerDto.setUserName(getLoginName());
       registerDto.setUserEmail(getLoginEmail());
       registerDto.setClubRegisterStatus(ClubRegistrationDto.ClubRegisterStatus.SUBMITTED);
       ClubRegistrationDto registerResult = clubRegistrationRepo.save(registerDto);
       model.addAttribute("registerResultDto", registerResult);
-      
+      boolean update = false;
+      model.addAttribute("update", update);
       return "applicant_register_result";
     }
- 
+
+    @GetMapping("/applicant_register_update/{id}")
+    public String updateRegisterForm(@PathVariable("id") Long id, Model model) {
+
+    	ClubRegistrationDto updateRegisterForm = clubRegistrationRepo.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
+
+    	model.addAttribute("updateRegisterForm", updateRegisterForm);
+        return "applicant_register_update";
+    }
+
+    @PostMapping("update_register_form/{id}")
+    public String actionUpdateRegisterForm(@PathVariable("id") Long id, ClubRegistrationDto updateRegisterForm,
+    		BindingResult result, Model model) {
+        
+    	if (result.hasErrors()) {
+        	updateRegisterForm.setId(id);
+            return "applicant_register_update";
+        }
+    	ClubRegistrationDto newRegisterForm = clubRegistrationRepo.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
+    	
+    	// Copy user's new answers from updateRegisterForm to newRegisterForm.
+    	newRegisterForm.setClubNameOption(updateRegisterForm.getClubNameOption());
+    	newRegisterForm.setClubExecutiveTeamMembersEmails(updateRegisterForm.getClubExecutiveTeamMembersEmails());
+    	newRegisterForm.setClubExecutiveTeamMembersNames(updateRegisterForm.getClubExecutiveTeamMembersNames());
+    	newRegisterForm.setClubLocation(updateRegisterForm.getClubLocation());
+    	newRegisterForm.setClubMeetingDescription(updateRegisterForm.getClubMeetingDescription());
+    	newRegisterForm.setClubMeetInterval(updateRegisterForm.getClubMeetInterval());
+    	newRegisterForm.setClubPresidentsEmails(updateRegisterForm.getClubPresidentsEmails());
+    	newRegisterForm.setClubPresidentsInstagram(updateRegisterForm.getClubPresidentsInstagram());
+    	newRegisterForm.setClubPresidentsNames(updateRegisterForm.getClubPresidentsNames());
+    	newRegisterForm.setClubPurpose(updateRegisterForm.getClubPurpose());
+    	newRegisterForm.setClubSocialMediaInfo(updateRegisterForm.getClubSocialMediaInfo());
+    	newRegisterForm.setGoogleClassroomCode(updateRegisterForm.getGoogleClassroomCode());
+    	newRegisterForm.setNote(updateRegisterForm.getNote());
+    	newRegisterForm.setOtherClubName(updateRegisterForm.getOtherClubName());
+    	newRegisterForm.setSupervisorEmail(updateRegisterForm.getSupervisorEmail());
+    	newRegisterForm.setSupervisorName(updateRegisterForm.getSupervisorName());
+    	newRegisterForm.setWhoCanJoin(updateRegisterForm.getWhoCanJoin());
+    	ClubRegistrationDto registerResult = clubRegistrationRepo.save(newRegisterForm);
+    	model.addAttribute("registerResultDto", registerResult);
+    	boolean update = true;
+    	model.addAttribute("update", update);
+
+        return "applicant_register_result";
+    }
+
     @GetMapping("/403")
     public String getAccessDeniedPage() {
         return "403";

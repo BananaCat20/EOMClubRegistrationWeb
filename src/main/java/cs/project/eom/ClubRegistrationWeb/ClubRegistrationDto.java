@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+// https://howtodoinjava.com/spring-boot2/spring-boot-crud-hibernate/
+
 @Entity
 @Table(name = "club_registration")
 public class ClubRegistrationDto {
@@ -21,7 +23,7 @@ public class ClubRegistrationDto {
 
 		RAINBOW_CLUB("Rainbow Club"),
 	    ICP_CLUB("International Certificate Program (ICP)"),
-	    IMPROVE_CLUB("Improve Club"),
+	    IMPROV_CLUB("Improv Club"),
 	    EARL_READS_BOOK_CLUB("Earl Reads Book Club"),
 	    LIONS_ROAR_NEWSPAPER_CLUB("Lion's Roar Newspaper"),
 	    ANIMAL_WELFARE_CLUB("Animal Welfare Club"),
@@ -42,7 +44,8 @@ public class ClubRegistrationDto {
 
 		SUBMITTED("Submitted"),
 	    APPROVLED("Approvled"),
-	    REFUSED("Refused");
+	    REFUSED("Refused"),
+		CANCELLED("Cancelled");
 
 	    public final String label;
 

@@ -9,10 +9,11 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
 <meta charset="UTF-8">
 <title>Registration Result</title>
 </head>
-<h3><a>You have successfully registered the club!</a><br/>
-   <a href="/applicant_view">Go Home</a></h3>
+<h4><a href="/applicant_view">Go Home</a></h4>
+<p style="font-size:100%;" th:text="${update} ? 'You have successfully updated the club application!' : 'You have successfully submitted the club application!'"/><br/>
    <div class = "form-group" th:object="${registerResultDto}">
        <p th:text="'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
+       <p th:text="'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text="'User Name: ' + ${registerResultDto.userName}"/>
        <p th:text="'User Email: ' + ${registerResultDto.userEmail}"/>
        <p th:text="'Name of Club at Earl of March: ' + ${registerResultDto.clubNameOption.getLabel()}"/>
