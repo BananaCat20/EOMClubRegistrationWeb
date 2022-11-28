@@ -10,7 +10,7 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
 <title>Registration Result</title>
 </head>
 <h4><a href="/applicant_view">Go Home</a></h4>
-<p style="font-size:100%;" th:text="${update} ? 'You have successfully updated the club application!' : 'You have successfully submitted the club application!'"/><br/>
+<p style="font-size:150%;" th:text="${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
    <div class = "form-group" th:object="${registerResultDto}">
        <p th:text="'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text="'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>

@@ -28,7 +28,7 @@ input {
           th:object="${updateRegisterForm}">
     <h1>EOM Club Registration Form #<span th:text="${updateRegisterForm.id}"></span><br/>
         <span th:text="${updateRegisterForm.userName}" style="color:blue"></span></h1>
-
+        <input class="delete" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete?');" th:formaction="@{/delete_register_form/{id}(id=${updateRegisterForm.id})}">
         <div class = "form-group">
             <label>Name of Club at Earl of March</label>
             <div th:each="clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">

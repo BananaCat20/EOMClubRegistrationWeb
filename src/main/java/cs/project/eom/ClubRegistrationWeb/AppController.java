@@ -212,6 +212,18 @@ public class AppController implements ErrorController {
         return "applicant_register_result";
     }
 
+    @PostMapping("delete_register_form/{id}")
+    public String actionDeleteRegisterForm(@PathVariable("id") Long id, Model model) {
+    	ClubRegistrationDto newRegisterForm = clubRegistrationRepo.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
+    	
+    	if (newRegisterForm != null) {
+    		clubRegistrationRepo.deleteById(id);
+    	}
+    	
+    	return "redirect:/applicant_view";
+    }
+
     @GetMapping("/403")
     public String getAccessDeniedPage() {
         return "403";
