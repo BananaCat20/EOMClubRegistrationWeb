@@ -52,7 +52,8 @@ td, th {
            </tr>
            <tr th:each="currentReg : ${currentRegList}">
              <td>
-                <a th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text="${currentReg.clubNameOption.getLabel()}"></a>
+                <a th:if="${currentReg.clubNameOption.getLabel()}=='Other'" th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text="'Other: ' + ${currentReg.otherClubName}"></a>
+                <a th:unless="${currentReg.clubNameOption.getLabel()}=='Other'" th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text="${currentReg.clubNameOption.getLabel()}"></a>
              </td>
              <td th:text="${currentReg.clubRegisterStatus.getLabel()}"></td>
              <td th:text="${#dates.format(currentReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>

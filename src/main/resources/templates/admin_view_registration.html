@@ -7,10 +7,10 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
 }
 </style>
 <meta charset="UTF-8">
-<title>Registration Result</title>
+<title>View Registration</title>
 </head>
-<h4><a href="/applicant_view">Go Home</a></h4>
-<p style="font-size:150%;" th:text="${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
+<h4><a href="/admin_view">Admin Main Page</a></h4>
+<p style="font-size:150%;" th:text="'Club application from ' + ${registerResultDto.userName}"/>
    <div class = "form-group" th:object="${registerResultDto}">
        <p th:text="'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text="'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
@@ -34,7 +34,7 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
        <p th:text="'Email of Teacher Supervisor: ' + ${registerResultDto.supervisorEmail}"/>
        <p th:text="'Notes: ' + ${registerResultDto.note}"/>
    </div>
-<h4><a href="/applicant_view">Go Home</a></h4>
+<h4><a href="/admin_view">Admin Main Page</a></h4>
 <body>
 
 </body>

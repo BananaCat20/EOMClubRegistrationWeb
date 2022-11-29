@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption;
+
 
 @Controller
 public class AppController implements ErrorController {
@@ -158,6 +160,11 @@ public class AppController implements ErrorController {
       registerDto.setUserName(getLoginName());
       registerDto.setUserEmail(getLoginEmail());
       registerDto.setClubRegisterStatus(ClubRegistrationDto.ClubRegisterStatus.SUBMITTED);
+      
+      // For clubNameOption is not other, set OtherclubName as empty string.
+      if (!registerDto.getClubNameOption().equals(ClubNameOption.OTHER_CLUB)) {
+    	  registerDto.setOtherClubName("");
+      }
       ClubRegistrationDto registerResult = clubRegistrationRepo.save(registerDto);
       model.addAttribute("registerResultDto", registerResult);
       boolean update = false;
@@ -188,6 +195,12 @@ public class AppController implements ErrorController {
     	
     	// Copy user's new answers from updateRegisterForm to newRegisterForm.
     	newRegisterForm.setClubNameOption(updateRegisterForm.getClubNameOption());
+        if (updateRegisterForm.getClubNameOption().equals(ClubNameOption.OTHER_CLUB)) {
+        	// Only set otherClubNmae when other is selected.
+        	newRegisterForm.setOtherClubName(updateRegisterForm.getOtherClubName());
+        } else {
+        	newRegisterForm.setOtherClubName("");
+        }
     	newRegisterForm.setClubExecutiveTeamMembersEmails(updateRegisterForm.getClubExecutiveTeamMembersEmails());
     	newRegisterForm.setClubExecutiveTeamMembersNames(updateRegisterForm.getClubExecutiveTeamMembersNames());
     	newRegisterForm.setClubLocation(updateRegisterForm.getClubLocation());
@@ -200,7 +213,6 @@ public class AppController implements ErrorController {
     	newRegisterForm.setClubSocialMediaInfo(updateRegisterForm.getClubSocialMediaInfo());
     	newRegisterForm.setGoogleClassroomCode(updateRegisterForm.getGoogleClassroomCode());
     	newRegisterForm.setNote(updateRegisterForm.getNote());
-    	newRegisterForm.setOtherClubName(updateRegisterForm.getOtherClubName());
     	newRegisterForm.setSupervisorEmail(updateRegisterForm.getSupervisorEmail());
     	newRegisterForm.setSupervisorName(updateRegisterForm.getSupervisorName());
     	newRegisterForm.setWhoCanJoin(updateRegisterForm.getWhoCanJoin());
@@ -222,6 +234,16 @@ public class AppController implements ErrorController {
     	}
     	
     	return "redirect:/applicant_view";
+    }
+
+    @GetMapping("/admin_view_registration/{id}")
+    public String adminViewRegistration(@PathVariable("id") Long id, Model model) {
+
+    	ClubRegistrationDto registerResultDto = clubRegistrationRepo.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
+
+    	model.addAttribute("registerResultDto", registerResultDto);
+        return "admin_view_registration";
     }
 
     @GetMapping("/403")

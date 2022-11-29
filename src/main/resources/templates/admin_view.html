@@ -5,12 +5,7 @@
 body {
     background-color: mediumseagreen;
 }
-p {
-    font-size: 35px;
-}
-a {
-    font-size: 25px;
-}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -27,7 +22,7 @@ td, th {
 <title>Admin Management</title>
 </head>
 <body>
-	<p>Welcome admin!</p>
+	<h2>Welcome admin!</h2>
 	<a th:href="@{/admin_logout}" >Logout</a>
 	<div th:if="${ not#lists.isEmpty(allRegList)}">
        <h2>All registered clubs</h2>
@@ -41,7 +36,10 @@ td, th {
              <th>Update Time</th>
            </tr>
            <tr th:each="eachReg : ${allRegList}">
-             <td th:text="${eachReg.clubNameOption.getLabel()}"></td>
+             <td>
+                <a th:if="${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="'Other: ' + ${eachReg.otherClubName}"></a>
+                <a th:unless="${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="${eachReg.clubNameOption.getLabel()}"></a>
+             </td>
              <td th:text="${eachReg.clubRegisterStatus.getLabel()}"></td>
              <td th:text="${eachReg.userName}"></td>
              <td th:text="${eachReg.userEmail}"></td>
