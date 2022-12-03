@@ -3,7 +3,6 @@ package cs.project.eom.ClubRegistrationWeb;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +45,7 @@ public class AppController implements ErrorController {
     @Autowired
     private ClubRegistrationRepository clubRegistrationRepo;
 
-    @RequestMapping(value={"/", "/welcome"})
+    @RequestMapping(value = {"/", "/welcome"})
     public ModelAndView welcome() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("welcome.html");
@@ -224,6 +223,7 @@ public class AppController implements ErrorController {
     	return "redirect:/applicant_view";
     }
 
+    // Getter and setter methods
     @GetMapping("/403")
     public String getAccessDeniedPage() {
         return "403";
@@ -260,5 +260,4 @@ public class AppController implements ErrorController {
 	public void setLoginImageLink(String loginImageLink) {
 		this.loginImageLink = loginImageLink;
 	}
-
 }

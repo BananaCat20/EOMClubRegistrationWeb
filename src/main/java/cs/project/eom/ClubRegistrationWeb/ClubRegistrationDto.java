@@ -43,7 +43,7 @@ public class ClubRegistrationDto {
 	public enum ClubRegisterStatus {
 
 		SUBMITTED("Submitted"),
-	    APPROVLED("Approvled"),
+	    APPROVED("Approved"),
 	    REFUSED("Refused"),
 		CANCELLED("Cancelled");
 
@@ -131,6 +131,7 @@ public class ClubRegistrationDto {
     	updatedDate = new Date();
     }
  
+    // Getter and setter methods
 	public Long getId() {
 		return id;
 	}

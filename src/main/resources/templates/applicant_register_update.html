@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <style>
+/* Internal CSS */
 body {
 background-image: linear-gradient(30deg, khaki, forestgreen);
 }
@@ -17,7 +18,8 @@ input {
   padding: 5px 10px;
 }
 </style>
-<meta charset="ISO-8859-1">
+<!-- HTML -->
+<meta charset = "ISO-8859-1">
 <title>Club Registration Form</title>
 </head>
 <body>
@@ -25,19 +27,19 @@ input {
 <div class = "container">
     <h4><a href = "/applicant_view">Go Back</a></h4>
     <form action = "#" th:action="@{/update_register_form/{id}(id=${updateRegisterForm.id})}" method="post" 
-          th:object="${updateRegisterForm}">
-    <h1>EOM Club Registration Form #<span th:text="${updateRegisterForm.id}"></span><br/>
-        <span th:text="${updateRegisterForm.userName}" style="color:blue"></span></h1>
-        <input class="delete" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete?');" th:formaction="@{/delete_register_form/{id}(id=${updateRegisterForm.id})}">
+          th:object = "${updateRegisterForm}">
+    <h1>EOM Club Registration Form #<span th:text = "${updateRegisterForm.id}"></span><br/>
+        <span th:text = "${updateRegisterForm.userName}" style = "color:blue"></span></h1>
+        <input class = "delete" type="submit" value = "Delete" onclick = "return confirm('Are you sure you want to delete?');" th:formaction="@{/delete_register_form/{id}(id=${updateRegisterForm.id})}">
         <div class = "form-group">
             <label>Name of Club at Earl of March</label>
-            <div th:each="clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">
+            <div th:each = "clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">
                 <div class = "custom-control custom-radio custom-control-inline">
-                    <input type="radio" th:field="*{clubNameOption}" th:value="${clubName}" class="custom-control-input" required>
-                    <label class="custom-control-label" th:for="${#ids.prev('clubNameOption')}" th:text="${clubName.getLabel()}">ClubName</label>
+                    <input type = "radio" th:field = "*{clubNameOption}" th:value = "${clubName}" class="custom-control-input" required>
+                    <label class = "custom-control-label" th:for = "${#ids.prev('clubNameOption')}" th:text="${clubName.getLabel()}">ClubName</label>
                 </div>
             </div>
-            <input type = "text" th:field="*{otherClubName} " size="50"/>
+            <input type = "text" th:field = "*{otherClubName} " size = "50"/>
         </div>
 
         <div class = "form-group">
@@ -49,49 +51,49 @@ input {
             <input type = "text" required th:field="*{clubExecutiveTeamMembersEmails}" size="50"/><br/><br/>
 
             <label>Name(s) of Club President(s): </label>
-            <input type="text" required th:field="*{clubPresidentsNames}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubPresidentsNames}" size="50"/><br/><br/>
 
             <label>School Email(s) of Club President(s): </label>
-            <input type="text" required th:field="*{clubPresidentsEmails}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubPresidentsEmails}" size="50"/><br/><br/>
 
             <label>Instagram of Club President(s): </label>
-            <input type="text" required th:field="*{clubPresidentsInstagram}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubPresidentsInstagram}" size="50"/><br/><br/>
 
             <label>What is the purpose of this club? (What is the vision/goal?): </label>
-            <input type="text" required th:field="*{clubPurpose}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubPurpose}" size="50"/><br/><br/>
 
             <label>What will your club meetings be used for?: </label>
-            <input type="text" required th:field="*{clubMeetingDescription}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubMeetingDescription}" size="50"/><br/><br/>
 
             <label>Who will be able to join your club?: </label>
-            <input type="text" required th:field="*{whoCanJoin}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{whoCanJoin}" size="50"/><br/><br/>
 
             <label>Where will your club meetings be held?: </label>
-            <input type="text" required th:field="*{clubLocation}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubLocation}" size="50"/><br/><br/>
 
             <label>How often will your club meet? (example 1/week): </label>
-            <input type="text" required th:field="*{clubMeetInterval}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{clubMeetInterval}" size="50"/><br/><br/>
 
             <label>Optional: Google Classroom Code (if applicable): </label>
-            <input type="text" th:field="*{googleClassroomCode}" size="50"/><br/><br/>
+            <input type = "text" th:field="*{googleClassroomCode}" size="50"/><br/><br/>
 
             <label>Optional: Club Social Media Info (Instagram, Facebook, Email, etc.): </label>
-            <input type="text" th:field="*{clubSocialMediaInfo}" size="50"/><br/><br/>
+            <input type = "text" th:field="*{clubSocialMediaInfo}" size="50"/><br/><br/>
 
             <label>Name of Teacher Supervisor: </label>
-            <input type="text" required th:field="*{supervisorName}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{supervisorName}" size="50"/><br/><br/>
 
             <label>Email of Teacher Supervisor: </label>
-            <input type="text" required th:field="*{supervisorEmail}" size="50"/><br/><br/>
+            <input type = "text" required th:field="*{supervisorEmail}" size="50"/><br/><br/>
 
             <label>Notes: </label>
-            <textarea rows="5" cols="50" th:field="*{note}"></textarea><br/>
+            <textarea rows = "5" cols = "50" th:field = "*{note}"></textarea><br/>
         </div>
 
-        <input type="submit" value="Save">
-        <input type="reset">
+        <input type = "submit" value = "Save">
+        <input type = "reset">
     </form>
-    <h4><a href="/applicant_view">Go Home</a></h4>
+    <h4><a href = "/applicant_view">Go Home</a></h4>
 </div>
 </body>
 </html>

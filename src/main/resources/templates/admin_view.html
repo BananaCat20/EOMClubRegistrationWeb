@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<!-- Admin page -->
 <html xmlns:th="http:/www.thymeleaf.org">
 <head>
 <style>
+/* Internal CSS */
 body {
     background-color: mediumseagreen;
 }
@@ -23,23 +25,26 @@ td, th {
   padding: 8px;
 }
 </style>
+<!-- HTML -->
 <meta charset="UTF-8">
 <title>Admin Management</title>
 </head>
 <body>
-	<p>Welcome admin!</p>
+	<p>Welcome, admin!</p>
 	<a th:href="@{/admin_logout}" >Logout</a>
+	<!-- Database table where the admin can see all of the registered clubs -->
 	<div th:if="${ not#lists.isEmpty(allRegList)}">
-       <h2>All registered clubs</h2>
+       <h2>All Registered Clubs</h2>
          <table>
            <tr>
              <th>Club Name</th>
              <th>Status</th>
              <th>Applicant Name</th>
              <th>Applicant Email</th>
-             <th>Create Time</th>
+             <th>Creation Time</th>
              <th>Update Time</th>
            </tr>
+           <!-- Links -->
            <tr th:each="eachReg : ${allRegList}">
              <td th:text="${eachReg.clubNameOption.getLabel()}"></td>
              <td th:text="${eachReg.clubRegisterStatus.getLabel()}"></td>
