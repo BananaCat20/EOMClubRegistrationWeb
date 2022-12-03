@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http:/www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th = "http:/www.thymeleaf.org" xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<meta charset="UTF-8">
+<meta charset = "UTF-8">
 <title>Applicant Home Page</title>
 <style>
+/* Internal CSS */
 img {
     border-radius: 50%;
 }
@@ -21,27 +22,26 @@ td, th {
   text-align: left;
   padding: 8px;
 }
-
-
 </style>
+<!-- HTML -->
 </head>
 <body>
 
 	<div>
-	      <h3><a><img th:src="*{loginImageLink}" style="width:25px"/> <span th:text="*{loginName}" style="color:blue">user</span>
+	      <h3><a><img th:src = "*{loginImageLink}" style = "width:25px"/> <span th:text = "*{loginName}" style = "color:blue">user</span>
 	      <br/>
-	      <span th:text="*{loginEmail}" style="color: green">user</span></a></h3>
+	      <span th:text = "*{loginEmail}" style = "color: green">user</span></a></h3>
 	</div>
 
-	<form action="/register_form">
-	   <input type="submit" value="Register a new Club" /><br/>
+	<form action = "/register_form">
+	   <input type = "submit" value = "Register a new Club" /><br/>
 	</form>
 
-	<form th:action="@{logout}" method="post">
-	    <input type="submit" value="Sign Out"/><br/>
+	<form th:action = "@{logout}" method = "post">
+	    <input type = "submit" value = "Sign Out"/><br/>
 	</form>
 
-       <div th:if="${ not#lists.isEmpty(currentRegList)}">
+       <div th:if = "${ not#lists.isEmpty(currentRegList)}">
        <h2>The clubs you applied</h2>
          <table>
            <tr>
@@ -50,18 +50,18 @@ td, th {
              <th>Create Time</th>
              <th>Update Time</th>
            </tr>
-           <tr th:each="currentReg : ${currentRegList}">
+           <tr th:each = "currentReg : ${currentRegList}">
              <td>
-                <a th:if="${currentReg.clubNameOption.getLabel()}=='Other'" th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text="'Other: ' + ${currentReg.otherClubName}"></a>
-                <a th:unless="${currentReg.clubNameOption.getLabel()}=='Other'" th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text="${currentReg.clubNameOption.getLabel()}"></a>
+                <a th:if = "${currentReg.clubNameOption.getLabel()}=='Other'" th:href = "@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text = "'Other: ' + ${currentReg.otherClubName}"></a>
+                <a th:unless = "${currentReg.clubNameOption.getLabel()}=='Other'" th:href = "@{/applicant_register_update/{id}(id=${currentReg.id})}" th:text = "${currentReg.clubNameOption.getLabel()}"></a>
              </td>
-             <td th:text="${currentReg.clubRegisterStatus.getLabel()}"></td>
-             <td th:text="${#dates.format(currentReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-             <td th:text="${#dates.format(currentReg.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td th:text = "${currentReg.clubRegisterStatus.getLabel()}"></td>
+             <td th:text = "${#dates.format(currentReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td th:text = "${#dates.format(currentReg.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
            </tr>
          </table>
        </div>
-       <div th:unless="${ not#lists.isEmpty(currentRegList)}">
+       <div th:unless = "${ not#lists.isEmpty(currentRegList)}">
        <h2>You do not have a club applied.</h2>
        </div>
 </body>
