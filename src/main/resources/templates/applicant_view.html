@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- This is the applicant view file, which is what the student user will see upon logging in -->
 <html xmlns:th = "http:/www.thymeleaf.org" xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset = "UTF-8">
@@ -42,13 +43,13 @@ td, th {
 	</form>
 
        <div th:if = "${ not#lists.isEmpty(currentRegList)}">
-       <h2>The clubs you applied</h2>
+       <h2>My Clubs</h2>
          <table>
            <tr>
              <th>Club Name</th>
              <th>Status</th>
-             <th>Create Time</th>
-             <th>Update Time</th>
+             <th>Time of Creation</th>
+             <th>Time of Update</th>
            </tr>
            <tr th:each = "currentReg : ${currentRegList}">
              <td>

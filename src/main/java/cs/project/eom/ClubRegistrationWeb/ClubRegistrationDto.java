@@ -39,12 +39,12 @@ public class ClubRegistrationDto {
 	    	return label;
 	    }
 	}
-   
+
 	public enum ClubRegisterStatus {
 
 		SUBMITTED("Submitted"),
 	    APPROVED("Approved"),
-	    REFUSED("Refused"),
+	    DENIED("Denied"),
 		CANCELLED("Cancelled");
 
 	    public final String label;

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- This is the applicant register result file, where the student user is able to see the information that they put on the club registration form -->
 <html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <style>
@@ -14,6 +15,7 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
 <h4><!-- Link to the applicant view page -->
 <a href = "/applicant_view">Go Home</a>
 </h4>
+<!-- These are the user's answers to the questions on the club registration form -->
 <p style = "font-size:150%;" th:text="${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
    <div class = "form-group" th:object="${registerResultDto}">
        <p th:text = "'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
@@ -38,6 +40,7 @@ background-image: linear-gradient(30deg, khaki, forestgreen);
        <p th:text = "'Notes: ' + ${registerResultDto.note}"/>
    </div>
 <h4>
+<!-- Link to the applicant view page -->
 <a href = "/applicant_view">Go Home</a>
 </h4>
 <body>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Admin page -->
-<html xmlns:th="http:/www.thymeleaf.org">
+<!-- This is the admin page, which is what the admin user will see when they log in -->
+<html xmlns:th = "http:/www.thymeleaf.org">
 <head>
 <style>
 /* Internal CSS */
@@ -29,7 +29,7 @@ td, th {
 	<h2>Welcome admin!</h2>
 
 	<a th:href="@{/admin_logout}" >Logout</a>
-	<!-- Database table where the admin can see all of the registered clubs -->
+	<!-- This is the database table where the admin can see all of the registered clubs -->
 	<div th:if="${ not#lists.isEmpty(allRegList)}">
        <h2>All Registered Clubs</h2>
          <table>
@@ -57,4 +57,3 @@ td, th {
     </div>
 </body>
 </html>
-

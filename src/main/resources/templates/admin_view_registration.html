@@ -1,40 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!-- This is what the admin user will see once they click on a club request -->
+<html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <style>
 body {
 background-image: linear-gradient(30deg, khaki, forestgreen);
 }
 </style>
-<meta charset="UTF-8">
+<meta charset = "UTF-8">
 <title>View Registration</title>
 </head>
 <h4><a href="/admin_view">Admin Main Page</a></h4>
-<p style="font-size:150%;" th:text="'Club application from ' + ${registerResultDto.userName}"/>
-   <div class = "form-group" th:object="${registerResultDto}">
-       <p th:text="'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
-       <p th:text="'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
-       <p th:text="'User Name: ' + ${registerResultDto.userName}"/>
-       <p th:text="'User Email: ' + ${registerResultDto.userEmail}"/>
-       <p th:if="${registerResultDto.clubNameOption.getLabel()}=='Other'" th:text="'Name of Club at Earl of March (Other): ' +  ${registerResultDto.otherClubName}"/>
-       <p th:unless="${registerResultDto.clubNameOption.getLabel()}=='Other'" th:text="'Name of Club at Earl of March: ' +  ${registerResultDto.clubNameOption.getLabel()}"/>
-       <p th:text="'Names of all Club Executive Team Members: ' + ${registerResultDto.clubExecutiveTeamMembersNames}"/>
-       <p th:text="'School Emails of all Club Executive Team Members: ' + ${registerResultDto.clubExecutiveTeamMembersEmails}"/>
-       <p th:text="'Name(s) of Club President(s): ' + ${registerResultDto.clubPresidentsNames}"/>
-       <p th:text="'School Email(s) of Club President(s): ' + ${registerResultDto.clubPresidentsEmails}"/>
-       <p th:text="'Instagram of Club President(s): ' + ${registerResultDto.clubPresidentsInstagram}"/>
-       <p th:text="'What is the purpose of this club?: ' + ${registerResultDto.clubPurpose}"/>
-       <p th:text="'What will your club meetings be used for?: ' + ${registerResultDto.clubMeetingDescription}"/>
-       <p th:text="'Who will be able to join your club?: ' + ${registerResultDto.whoCanJoin}"/>
-       <p th:text="'Where will your club meetings be held?: ' + ${registerResultDto.clubLocation}"/>
-       <p th:text="'How often will your club meet?: ' + ${registerResultDto.clubMeetInterval}"/>
-       <p th:text="'Optional: Google Classroom Code: ' + ${registerResultDto.googleClassroomCode}"/>
-       <p th:text="'Optional: Club Social Media Info: ' + ${registerResultDto.clubSocialMediaInfo}"/>
-       <p th:text="'Name of Teacher Supervisor: ' + ${registerResultDto.supervisorName}"/>
-       <p th:text="'Email of Teacher Supervisor: ' + ${registerResultDto.supervisorEmail}"/>
-       <p th:text="'Notes: ' + ${registerResultDto.note}"/>
+<!-- This is all the information that the student user filled out on the club registration form -->
+<p style = "font-size:150%;" th:text = "'Club application from ' + ${registerResultDto.userName}"/>
+   <div class = "form-group" th:object = "${registerResultDto}">
+       <p th:text = "'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
+       <p th:text = "'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
+       <p th:text = "'User Name: ' + ${registerResultDto.userName}"/>
+       <p th:text = "'User Email: ' + ${registerResultDto.userEmail}"/>
+       <p th:if = "${registerResultDto.clubNameOption.getLabel()}=='Other'" th:text="'Name of Club at Earl of March (Other): ' +  ${registerResultDto.otherClubName}"/>
+       <p th:unless = "${registerResultDto.clubNameOption.getLabel()}=='Other'" th:text="'Name of Club at Earl of March: ' +  ${registerResultDto.clubNameOption.getLabel()}"/>
+       <p th:text = "'Names of all Club Executive Team Members: ' + ${registerResultDto.clubExecutiveTeamMembersNames}"/>
+       <p th:text = "'School Emails of all Club Executive Team Members: ' + ${registerResultDto.clubExecutiveTeamMembersEmails}"/>
+       <p th:text = "'Name(s) of Club President(s): ' + ${registerResultDto.clubPresidentsNames}"/>
+       <p th:text = "'School Email(s) of Club President(s): ' + ${registerResultDto.clubPresidentsEmails}"/>
+       <p th:text = "'Instagram of Club President(s): ' + ${registerResultDto.clubPresidentsInstagram}"/>
+       <p th:text = "'What is the purpose of this club?: ' + ${registerResultDto.clubPurpose}"/>
+       <p th:text = "'What will your club meetings be used for?: ' + ${registerResultDto.clubMeetingDescription}"/>
+       <p th:text = "'Who will be able to join your club?: ' + ${registerResultDto.whoCanJoin}"/>
+       <p th:text = "'Where will your club meetings be held?: ' + ${registerResultDto.clubLocation}"/>
+       <p th:text = "'How often will your club meet?: ' + ${registerResultDto.clubMeetInterval}"/>
+       <p th:text = "'Optional: Google Classroom Code: ' + ${registerResultDto.googleClassroomCode}"/>
+       <p th:text = "'Optional: Club Social Media Info: ' + ${registerResultDto.clubSocialMediaInfo}"/>
+       <p th:text = "'Name of Teacher Supervisor: ' + ${registerResultDto.supervisorName}"/>
+       <p th:text = "'Email of Teacher Supervisor: ' + ${registerResultDto.supervisorEmail}"/>
+       <p th:text = "'Notes: ' + ${registerResultDto.note}"/>
+       <!-- These are the approve and deny buttons that the admin user can click on to change the club request's status -->
+       <form action = "#" th:action = "@{/admin_approve_registration/{id}(id=${registerResultDto.id})}" method = "post" th:object = "${registerResultDto}"> 
+       <input class = "approve" type = "submit" value = "Approve">
+       <input class = "deny" type = "submit" value = "Deny" th:formaction = "@{/admin_deny_registration/{id}(id=${registerResultDto.id})}">
+       </form>
+       
    </div>
-<h4><a href="/admin_view">Admin Main Page</a></h4>
+<h4><a href = "/admin_view">Admin Main Page</a></h4>
 <body>
 
 </body>

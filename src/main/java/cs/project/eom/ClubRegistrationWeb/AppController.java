@@ -1,3 +1,4 @@
+// This is the app controller file. I put the variables and methods in this file.
 package cs.project.eom.ClubRegistrationWeb;
 
 import java.util.ArrayList;
@@ -29,10 +30,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption;
+import cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubRegisterStatus;
 
 
 @Controller
 public class AppController implements ErrorController {
+	// variables
 	private ClubRegistrationDto clubRegistrationDto;
 	private ArrayList<ClubRegistrationDto> currentRegList = new ArrayList<ClubRegistrationDto>();
 	private ArrayList<ClubRegistrationDto> allRegList = new ArrayList<ClubRegistrationDto>();
@@ -243,6 +246,30 @@ public class AppController implements ErrorController {
 
     	model.addAttribute("registerResultDto", registerResultDto);
         return "admin_view_registration";
+    }
+    
+    @PostMapping("/admin_approve_registration/{id}")
+    public String adminApproveRegistration(@PathVariable("id") Long id, Model model) {
+
+    	ClubRegistrationDto registerResultDto = clubRegistrationRepo.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
+
+    	registerResultDto.setClubRegisterStatus(ClubRegisterStatus.APPROVED);
+    	clubRegistrationRepo.save(registerResultDto);
+    	model.addAttribute("registerResultDto", registerResultDto);
+        return "redirect:/admin_view";
+    }
+    
+    @PostMapping("/admin_deny_registration/{id}")
+    public String adminDenyRegistration(@PathVariable("id") Long id, Model model) {
+
+    	ClubRegistrationDto registerResultDto = clubRegistrationRepo.findById(id)
+    			.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
+
+    	registerResultDto.setClubRegisterStatus(ClubRegisterStatus.DENIED);
+    	clubRegistrationRepo.save(registerResultDto);
+    	model.addAttribute("registerResultDto", registerResultDto);
+        return "redirect:/admin_view";
     }
 
     @GetMapping("/403")
