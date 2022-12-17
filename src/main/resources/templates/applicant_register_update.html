@@ -5,17 +5,20 @@
 <style>
 /* Internal CSS */
 body {
-background-image: linear-gradient(30deg, khaki, forestgreen);
+	background-image: linear-gradient(30deg, khaki, forestgreen);
 }
+
 div {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
+
 label {
-  display: inline-block;
-  width: 500px;
+	display: inline-block;
+	width: 500px;
 }
+
 input {
-  padding: 5px 10px;
+	padding: 5px 10px;
 }
 </style>
 <!-- HTML -->
@@ -89,6 +92,9 @@ input {
 
             <label>Notes: </label>
             <textarea rows = "5" cols = "50" th:field = "*{note}"></textarea><br/>
+            
+            <label>Feedback: </label>
+            <textarea readonly rows = "5" cols = "50" th:field = "*{feedback}"></textarea><br/>
         </div>
 
         <input type = "submit" value = "Save">

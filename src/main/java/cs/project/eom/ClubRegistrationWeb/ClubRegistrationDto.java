@@ -112,6 +112,9 @@ public class ClubRegistrationDto {
 
     @Column
 	private String note;
+    
+    @Column
+	private String feedback;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -314,6 +317,14 @@ public class ClubRegistrationDto {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 
 }

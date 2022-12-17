@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <!-- This is the admin login file, which is what the user will see if they click on the admin login button -->
-<html xmlns:th = "http:/www.thymeleaf.org" xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http:/www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <style>
 /* Internal CSS */
 body {
-background-color: seagreen;
+	background-color: seagreen;
 }
 </style>
 <!-- HTML -->
@@ -14,29 +15,29 @@ background-color: seagreen;
 </head>
 <body>
 
-    <p>Admin Login Page</p>
-    <form name = "f" action = "admin_login" method = "POST">
+	<p>Admin Login Page</p>
+	<form name = "f" action = "admin_login" method = "POST">
 
-        <table>
-            <tr>
-            <!-- set username -->
-                <td>Username:</td>
-                <td><input type = "text" name = "username" /></td>
-            </tr>
-            <tr>
-            <!-- set password -->
-                <td>Password:</td>
-                <td><input type = "password" name = "password" /></td>
-            </tr>
-            <tr>
-            <!-- submit button -->
-                <td><input name = "Submit" type = "Submit" value = "Submit" /></td>
-            </tr>
-        </table>
+		<table>
+			<tr>
+				<!-- set username -->
+				<td>Username:</td>
+				<td><input type = "text" name = "username" /></td>
+			</tr>
+			<tr>
+				<!-- set password -->
+				<td>Password:</td>
+				<td><input type = "password" name = "password" /></td>
+			</tr>
+			<tr>
+				<!-- submit button -->
+				<td><input name = "Submit" type = "Submit" value = "Submit" /></td>
+			</tr>
+		</table>
 
-    </form>
+	</form>
 
-    <p th:if = "${param.error}">Login failed</p>
+	<p th:if = "${param.error}">Login failed</p>
 
 </body>
 </html>
