@@ -28,7 +28,9 @@ td, th {
 
 	<h2>Welcome admin!</h2>
 
-	<a th:href="@{/admin_logout}" >Logout</a>
+	<form th:action="@{logout}">
+	    <input type="submit" value="Sign Out" /><br />
+	</form>
 	<!-- Database table where the admin can see all of the registered clubs -->
 	<div th:if="${ not#lists.isEmpty(allRegList)}">
        <h2>All Registered Clubs</h2>

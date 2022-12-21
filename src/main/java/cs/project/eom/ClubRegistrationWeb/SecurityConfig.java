@@ -50,7 +50,6 @@ public class SecurityConfig {
 	            // logout
 	            .and()
 	            .logout()
-	            .logoutUrl("/admin_logout")
 	            .logoutSuccessUrl("/welcome")
 	            .deleteCookies("JSESSIONID")
 	            .and()
