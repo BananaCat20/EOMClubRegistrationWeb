@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http:/www.thymeleaf.org">
+<!-- This is the welcome file, which is the first page that the user will see upon going to this website -->
+<html xmlns:th = "http:/www.thymeleaf.org">
 <head>
 <style>
 /* Internal CSS */
-	body {
+body {
 	background-image: linear-gradient(100deg, yellow, green);
-	}
-	h1 {
+}
+
+h1 {
 	font-size: 35px;
-	}
-    a {font-size: 25px; }
-    .button {
-			display: inline-block;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			color: white;
-			background-color: #3290c5;
-			border-radius: 6px;
-			outline: none;
-      }
-      .center {
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
-		  height: 100px;
-	  }
-   	</style>
-   	<!-- HTML -->
+}
+
+a {
+	font-size: 25px;
+}
+
+.button {
+	display: inline-block;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	background-color: #3290c5;
+	border-radius: 6px;
+	outline: none;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100px;
+}
+</style>
+<!-- HTML -->
       <meta charset = "ISO-8859-1">
       <title>Welcome</title>
    	</head>
@@ -36,9 +43,11 @@
 	    <h1 >Welcome to the EOM Club Registration Web App!</h1>
     </div>
     <div class = "center">
+    <!-- If the user clicks on this button, they'll be taken to the admin login page -->
     	<a class = "button" href = "/admin_view">Admin Login</a>
 	</div>
     <div class = "center">
+    <!-- If the user clicks on this button, they'll be taken to the google sign-in page -->
     	<a class = "button" href = "/applicant_view">Applicant Login (OCDSB account)</a>
 	</div>
 	</body>

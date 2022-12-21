@@ -10,15 +10,15 @@ import javax.persistence.*;
 @Table(name = "user")
 public class UserDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false, unique = true, length = 45)
-    private String email;
+	@Column(nullable = false, unique = true, length = 45)
+	private String email;
 
-    @Column(name = "username", nullable = false, length = 20)
-    private String userName;
+	@Column(name = "username", nullable = false, length = 20)
+	private String userName;
 
 	public Long getId() {
 		return id;
@@ -44,23 +44,23 @@ public class UserDto {
 		this.userName = userName;
 	}
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+	private Date createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date updatedDate;
-    
-    @PrePersist
-    protected void onCreate() {
-    	updatedDate = createdDate = new Date();
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+	private Date updatedDate;
 
-    @PreUpdate
-    protected void onUpdate() {
-    	updatedDate = new Date();
-    }
+	@PrePersist
+	protected void onCreate() {
+		updatedDate = createdDate = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updatedDate = new Date();
+	}
 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -77,5 +77,5 @@ public class UserDto {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-    
+
 }
