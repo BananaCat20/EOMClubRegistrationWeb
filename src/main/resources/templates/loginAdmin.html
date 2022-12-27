@@ -1,49 +1,115 @@
 <!DOCTYPE html>
 <!-- This is the admin login file, which is what the user will see if they click on the admin login button -->
 <html xmlns:th = "http:/www.thymeleaf.org"
-	xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <style>
-/* Internal CSS */
 body {
-	background-color: #13a452;
-}
-p, td, tr {
-	font-size: 20px;
+    background-image: linear-gradient(to right, yellow, green);
+    background-size: cover;
+    font-family: Montserrat;
 }
 
-input {
-font-size: 17px;
+.logo {
+    width: 213px;
+    height: 36px;
+    background: url('http://i.imgur.com/fd8Lcso.png') no-repeat;
+    margin: 30px auto;
 }
+
+.login-block {
+    width: 320px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border-top: 5px solid rgb(66, 146, 27);
+    margin: 200px auto;
+}
+
+.login-block h1 {
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.login-block input {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Montserrat;
+    padding: 0 20px 0 50px;
+    outline: none;
+}
+
+.login-block input#username {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#username:focus {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#password {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#password:focus {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input:active, .login-block input:focus {
+    border: 1px solid rgb(66, 146, 27);
+}
+
+.login-block button {
+    width: 100%;
+    height: 40px;
+    background: rgb(66, 146, 27);
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid rgb(66, 146, 27);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
+
+}
+
+.login-block button:hover {
+    background: rgb(124, 207, 72);
+}
+
 </style>
-<!-- HTML -->
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <meta http-equiv = "Content-Type" content = "text/html; charset=ISO-8859-1" />
 <title>Admin Login</title>
 </head>
 <body>
-	<p>Admin Login Page</p>
-	<form name = "f" action = "admin_login" method = "POST">
 
-		<table>
-			<tr>
-				<!-- set username -->
-				<td>Username:</td>
-				<td><input type = "text" name = "username" /></td>
-			</tr>
-			<tr>
-				<!-- set password -->
-				<td>Password:</td>
-				<td><input type = "password" name = "password"/></td>
-			</tr>
-			<tr>
-				<!-- submit button -->
-				<td><input name = "Submit" type = "Submit" value = "Submit" /></td>
-			</tr>
-		</table>
+<div class="login-block">
+    <h1>Admin Login</h1>
+    <form name = "f" action = "admin_login" method = "POST">
+    <input type="text" value="" placeholder="Username" name="username" />
+    <input type="password" value="" placeholder="Password" name="password" />
+    <button>Submit</button>
 
-	</form>
+    </form>
 
-	<p th:if = "${param.error}">Login failed</p>
-
+    <p th:if = "${param.error}">Login failed</p>
+</div>
 </body>
 </html>

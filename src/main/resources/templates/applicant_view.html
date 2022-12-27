@@ -12,19 +12,25 @@ img {
 }
 
 body {
-	background-color: palegoldenrod;
+	background-image: linear-gradient(to right, yellow, green);
+    font-size: 18px;
 }
 
 table {
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
 	width: 100%;
+    font-size: 18px;
 }
 
 td, th {
 	border: 1px solid #1a6985;
 	text-align: left;
 	padding: 8px;
+}
+
+input {
+    font-size: 18px;
 }
 </style>
 <!-- HTML -->
@@ -35,7 +41,7 @@ td, th {
 		<h3>
 			<a><img th:src = "*{loginImageLink}" style = "width: 25px" /> <span
 				th:text = "*{loginName}" style = "color: blue">user</span> <br /> <span
-				th:text = "*{loginEmail}" style = "color: green">user</span></a>
+				th:text = "*{loginEmail}" style = "color: black">user</span></a>
 		</h3>
 	</div>
 
