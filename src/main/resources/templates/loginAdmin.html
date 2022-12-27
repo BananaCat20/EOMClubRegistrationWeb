@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <!-- This is the admin login file, which is what the user will see if they click on the admin login button -->
-<html xmlns:th="http:/www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th = "http:/www.thymeleaf.org"
+	xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <style>
 /* Internal CSS */
 body {
-	background-color: seagreen;
+	background-color: #13a452;
+}
+p, td, tr {
+	font-size: 20px;
+}
+
+input {
+font-size: 17px;
 }
 </style>
 <!-- HTML -->
@@ -14,7 +21,6 @@ body {
 <title>Admin Login</title>
 </head>
 <body>
-
 	<p>Admin Login Page</p>
 	<form name = "f" action = "admin_login" method = "POST">
 
@@ -27,7 +33,7 @@ body {
 			<tr>
 				<!-- set password -->
 				<td>Password:</td>
-				<td><input type = "password" name = "password" /></td>
+				<td><input type = "password" name = "password"/></td>
 			</tr>
 			<tr>
 				<!-- submit button -->

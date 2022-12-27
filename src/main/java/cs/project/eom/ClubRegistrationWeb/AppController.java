@@ -1,4 +1,4 @@
-// This is the app controller file. I put the variables and methods in this file.
+// This is the app controller file, where the variables and methods are.
 package cs.project.eom.ClubRegistrationWeb;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubRegisterStatus
 
 @Controller
 public class AppController implements ErrorController {
-	// variables
+	// Variables
 	private ClubRegistrationDto clubRegistrationDto;
 	private ArrayList<ClubRegistrationDto> currentRegList = new ArrayList<ClubRegistrationDto>();
 	private ArrayList<ClubRegistrationDto> allRegList = new ArrayList<ClubRegistrationDto>();
@@ -79,36 +79,36 @@ public class AppController implements ErrorController {
 	@RequestMapping("/applicant_view")
 	public String applicantView(Model model, OAuth2AuthenticationToken authentication) {
 
-		// Retrieve authentication user information
+		// Retrieving authentication user information
 		getAuthenticationInfo(authentication);
 
-		// Set attributes for thymeleaf template
+		// Setting attributes for the thymeleaf template
 		model.addAttribute("loginName", getLoginName());
 		model.addAttribute("loginEmail", getLoginEmail());
 		model.addAttribute("loginImageLink", getLoginImageLink());
 
-		// Register user in database
+		// Registering user in database
 		UserDto newUser = new UserDto();
 		newUser.setEmail(getLoginEmail());
 		newUser.setUserName(getLoginName());
 
-		// Find all the users in the database
+		// To find all the users in the database
 		List<UserDto> userList = userRepo.findAll();
 		boolean found = false;
 
-		// Find the newUser in the current user list
+		// To find the newUser in the current user list
 		for (UserDto user : userList) {
 			if (user.getEmail().equals(newUser.getEmail())) {
 				found = true;
 			}
 		}
 
-		// If we cannot find the newUser, create this newUser in database
+		// If we can't find the newUser, we'll create this newUser in the database
 		if (!found) {
 			userRepo.save(newUser);
 		}
 
-		// Find all the registrations with current user
+		// To find all the registrations that the current user has
 		currentRegList = clubRegistrationRepo.findByUserEmailIs(newUser.getEmail());
 		model.addAttribute("currentRegList", currentRegList);
 		return "applicant_view";
@@ -122,7 +122,7 @@ public class AppController implements ErrorController {
 	@RequestMapping("/admin_view")
 	public String adminView(Model model) {
 
-		// Find all the registrations with current user
+		// To find all the registrations that the current user has
 		allRegList = (ArrayList<ClubRegistrationDto>) clubRegistrationRepo.findAll();
 		model.addAttribute("allRegList", allRegList);
 
@@ -132,7 +132,7 @@ public class AppController implements ErrorController {
 	@RequestMapping("/register_form")
 	public String registerForm(Model model, OAuth2AuthenticationToken authentication) {
 
-		// Retrieve authentication user information
+		// Retrieving authentication user information
 		getAuthenticationInfo(authentication);
 
 		clubRegistrationDto = new ClubRegistrationDto();
@@ -165,7 +165,8 @@ public class AppController implements ErrorController {
 		registerDto.setUserEmail(getLoginEmail());
 		registerDto.setClubRegisterStatus(ClubRegistrationDto.ClubRegisterStatus.SUBMITTED);
 
-		// For clubNameOption is not other, set OtherclubName as empty string.
+		// If clubNameOption is not "other", this will set OtherclubName as an empty
+		// string.
 		if (!registerDto.getClubNameOption().equals(ClubNameOption.OTHER_CLUB)) {
 			registerDto.setOtherClubName("");
 		}
@@ -197,10 +198,10 @@ public class AppController implements ErrorController {
 		ClubRegistrationDto newRegisterForm = clubRegistrationRepo.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
 
-		// Copy user's new answers from updateRegisterForm to newRegisterForm.
+		// Copying user's new answers from updateRegisterForm to newRegisterForm.
 		newRegisterForm.setClubNameOption(updateRegisterForm.getClubNameOption());
 		if (updateRegisterForm.getClubNameOption().equals(ClubNameOption.OTHER_CLUB)) {
-			// Only set otherClubNmae when other is selected.
+			// This only sets otherClubName when "other" is selected.
 			newRegisterForm.setOtherClubName(updateRegisterForm.getOtherClubName());
 		} else {
 			newRegisterForm.setOtherClubName("");
@@ -252,21 +253,21 @@ public class AppController implements ErrorController {
 
 	@PostMapping("/admin_approve_registration/{id}")
 	public String adminApproveRegistration(@PathVariable("id") Long id, Model model,
-			      @ModelAttribute ClubRegistrationDto registerResultDto) {
+			@ModelAttribute ClubRegistrationDto registerResultDto) {
 
 		// Query registration DTO from database using id.
 		ClubRegistrationDto registerResultDtoDb = clubRegistrationRepo.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
-		
-		// we have feedback passed in from registerResultDto. Set it to DB.
+
+		// We have feedback passed in from registerResultDto and this sets it to DB.
 		registerResultDtoDb.setFeedback(registerResultDto.getFeedback());
-		
-		// Approve this registration.
+
+		// This approves this registration.
 		registerResultDtoDb.setClubRegisterStatus(ClubRegisterStatus.APPROVED);
-		
-		// Save all in DB
+
+		// This saves everything in DB.
 		clubRegistrationRepo.save(registerResultDtoDb);
-		
+
 		return "redirect:/admin_view";
 	}
 
@@ -277,16 +278,17 @@ public class AppController implements ErrorController {
 		ClubRegistrationDto registerResultDtoDb = clubRegistrationRepo.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid registration Id:" + id));
 
-		// we have feedback passed in from registerResultDto. Set it to DB.
+		// We have feedback passed in from registerResultDto and this sets it to DB.
 		registerResultDtoDb.setFeedback(registerResultDto.getFeedback());
-		
-		// Deny this registration.
+
+		// This denies the student user's club request.
 		registerResultDtoDb.setClubRegisterStatus(ClubRegisterStatus.DENIED);
 		clubRegistrationRepo.save(registerResultDtoDb);
 
 		return "redirect:/admin_view";
 	}
 
+	// These are getter and setter methods.
 	@GetMapping("/403")
 	public String getAccessDeniedPage() {
 		return "403";

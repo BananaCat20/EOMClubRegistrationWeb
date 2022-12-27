@@ -5,7 +5,7 @@
 <style>
 /* Internal CSS */
 body, form, p, div, select {
-	background-image: linear-gradient(30deg, khaki, forestgreen);
+	background: linear-gradient(30deg, khaki, forestgreen);
 	min-height: 100%;
 }
 
@@ -13,8 +13,8 @@ body, div, form, input, select, textarea, p {
 	padding: 0;
 	margin: 0;
 	outline: none;
-	font-family: Times New Roman sans-serif;
-	font-size: 17px;
+	font-family: Times New Roman;
+	font-size: 19px;
 	color: black;
 	line-height: 22px;
 }
@@ -22,7 +22,7 @@ body, div, form, input, select, textarea, p {
 h1 {
 	margin: 1;
 	font-size: 32px;
-	color: green;
+	color: yellow;
 	z-index: 2;
 }
 
@@ -38,8 +38,8 @@ form {
 	width: 100%;
 	padding: 20px;
 	border-radius: 6px;
-	background: #fff;
-	box-shadow: 0 0 30px 0 #8ebf42;
+	background: forestgreen;
+	box-shadow: 0 0 30px 0 yellow;
 }
 
 .banner {
@@ -81,7 +81,7 @@ textarea {
 
 .item input:hover, .item select:hover, .item textarea:hover {
 	border: 1px solid transparent;
-	box-shadow: 0 0 8px 0 #8ebf42;
+	box-shadow: 0 0 8px 0 black;
 	color: #8ebf42;
 }
 
@@ -90,15 +90,24 @@ textarea {
 	margin: 10px 0;
 }
 
-button {
+.btn-block {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.button {
 	width: 150px;
 	padding: 10px;
 	border: none;
 	border-radius: 5px;
-	background: #8ebf42;
-	font-size: 16px;
-	color: #fff;
+	font-size: 20px;
+	color: black;
 	cursor: pointer;
+}
+
+a {
+	font-size: 20px;
+	font-weight: bold;
 }
 </style>
 <!-- HTML -->
@@ -107,24 +116,25 @@ button {
 </head>
 <body>
 <!--Link: https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-radio-button-->
-	<div class = "container">
-	<h4>
-		<a href = "/applicant_view">Go Back</a>
-	</h4>
+  <h4>
+    <a href = "/applicant_view">Go Back</a>
+  </h4>
+  
+  <div class = "testbox">
 	<form action = "#" th:action = "@{/action_register_new_form}" method = "post" th:object = "${registrationDto}">
     <h1>EOM Club Registration Form For <span th:text = "*{userName}" style = "color:blue">user</span></h1>
-        <div class = "form-group">
+        <div class = "item">
             <label>Name of Club at Earl of March</label>
         	<div th:each = "clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">
                 <div class = "custom-control custom-radio custom-control-inline">
                     <input type = "radio" th:field = "*{clubNameOption}" th:value = "${clubName}" class = "custom-control-input" required>
-                    <label class = "custom-control-label" th:for = "${#ids.prev('clubNameOption')}" th:text = "${clubName.getLabel()}">ClubName</label>
+                    <label class = "radio" th:for = "${#ids.prev('clubNameOption')}" th:text = "${clubName.getLabel()}">ClubName</label>
                 </div>
             </div>
             <input type = "text" th:field = "*{otherClubName} " size = "50"/>
         </div>
 
-		<div class = "form-group">
+		<div class = "item">
 		    <br/><br/>
 	        <label>Names of all Club Executive Team Members</label><br/>
 	        <input type = "text" required th:field = "*{clubExecutiveTeamMembersNames} " size = "50"/><br/><br/>
@@ -172,12 +182,12 @@ button {
 	        <textarea rows = "5" cols = "50" th:field = "*{note}"></textarea><br/>
 		</div>
 
-        <input type = "submit">
-        <input type = "reset">
+        <input class = "button" type = "submit">
+        <input class = "button" type = "reset">
     </form>
-    <h4>
-    	<a href = "/applicant_view">Go Home</a>
-    </h4>
-		</div>
+  </div>
+  <h4>
+    <a href = "/applicant_view">Go Home</a>
+  </h4>
 </body>
 </html>

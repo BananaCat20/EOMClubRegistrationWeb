@@ -7,17 +7,35 @@
 body {
 	background-image: linear-gradient(30deg, khaki, forestgreen);
 }
+
+p {
+	font-size: 20px;
+	color: black;
+}
+
+.form-group {
+	margin-bottom: 10px;
+}
+
+label {
+	display: inline-block;
+	width: 500px;
+}
+
+input {
+	padding: 5px 10px;
+}
 </style>
 <!-- HTML -->
 <meta charset = "UTF-8">
-<title>Registration Result</title>
+<title>Registration Results</title>
 </head>
 <h4><!-- Link to the applicant view page -->
 <a href = "/applicant_view">Go Home</a>
 </h4>
 <!-- These are the user's answers to the questions on the club registration form -->
-<p style = "font-size:150%;" th:text="${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
-   <div class = "form-group" th:object="${registerResultDto}">
+<p style = "font-size:150%;" th:text = "${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
+   <div class = "form-group" th:object = "${registerResultDto}">
        <p th:text = "'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text = "'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text = "'User Name: ' + ${registerResultDto.userName}"/>
