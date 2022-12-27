@@ -49,6 +49,7 @@ public class AppController implements ErrorController {
 	@Autowired
 	private ClubRegistrationRepository clubRegistrationRepo;
 
+	// Method to handle GET request for /welcome page
 	@RequestMapping(value = { "/", "/welcome" })
 	public ModelAndView welcome() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -56,8 +57,9 @@ public class AppController implements ErrorController {
 		return modelAndView;
 	}
 
+	// Internal Method to retrieve Oauth2 client Google account information
+	// From https://www.baeldung.com/spring-security-5-oauth2-login
 	private void getAuthenticationInfo(OAuth2AuthenticationToken authentication) {
-		// From https://www.baeldung.com/spring-security-5-oauth2-login
 		OAuth2AuthorizedClient client = authorizedClientService
 				.loadAuthorizedClient(authentication.getAuthorizedClientRegistrationId(), authentication.getName());
 
@@ -76,6 +78,7 @@ public class AppController implements ErrorController {
 		}
 	}
 
+	// Method to handle GET request for /applicant_view page
 	@RequestMapping("/applicant_view")
 	public String applicantView(Model model, OAuth2AuthenticationToken authentication) {
 
@@ -114,11 +117,13 @@ public class AppController implements ErrorController {
 		return "applicant_view";
 	}
 
+	// Method to handle GET request for /loginAdmin page
 	@GetMapping("/loginAdmin")
 	public String getAdminLoginPage() {
 		return "loginAdmin";
 	}
 
+	// Method to handle GET request for /admin_view page
 	@RequestMapping("/admin_view")
 	public String adminView(Model model) {
 
@@ -129,6 +134,7 @@ public class AppController implements ErrorController {
 		return "admin_view";
 	}
 
+	// Method to handle POST request for /register_form page
 	@RequestMapping("/register_form")
 	public String registerForm(Model model, OAuth2AuthenticationToken authentication) {
 
@@ -142,6 +148,7 @@ public class AppController implements ErrorController {
 		return "register_form";
 	}
 
+	// Method to handle error
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request) {
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
@@ -158,6 +165,7 @@ public class AppController implements ErrorController {
 		return "error";
 	}
 
+	// Method to handle POST request for /action_register_new_form page
 	@PostMapping("/action_register_new_form")
 	public String actionRegisterNewForm(@ModelAttribute ClubRegistrationDto registerDto, Model model) {
 
@@ -177,6 +185,7 @@ public class AppController implements ErrorController {
 		return "applicant_register_result";
 	}
 
+	// Method to handle GET request for /applicant_register_update page on per ID basis
 	@GetMapping("/applicant_register_update/{id}")
 	public String updateRegisterForm(@PathVariable("id") Long id, Model model) {
 
@@ -187,6 +196,7 @@ public class AppController implements ErrorController {
 		return "applicant_register_update";
 	}
 
+	// Method to handle POST request for /update_register_form page on per ID basis
 	@PostMapping("update_register_form/{id}")
 	public String actionUpdateRegisterForm(@PathVariable("id") Long id, ClubRegistrationDto updateRegisterForm,
 			BindingResult result, Model model) {
@@ -229,6 +239,7 @@ public class AppController implements ErrorController {
 		return "applicant_register_result";
 	}
 
+	// Method to handle POST request for /delete_register_form page on per ID basis
 	@PostMapping("delete_register_form/{id}")
 	public String actionDeleteRegisterForm(@PathVariable("id") Long id, Model model) {
 		ClubRegistrationDto newRegisterForm = clubRegistrationRepo.findById(id)
@@ -241,6 +252,7 @@ public class AppController implements ErrorController {
 		return "redirect:/applicant_view";
 	}
 
+	// Method to handle GET request for /admin_view_registration page on per ID basis
 	@GetMapping("/admin_view_registration/{id}")
 	public String adminViewRegistration(@PathVariable("id") Long id, Model model) {
 
@@ -251,6 +263,7 @@ public class AppController implements ErrorController {
 		return "admin_view_registration";
 	}
 
+	// Method to handle POST request for /admin_approve_registration page on per ID basis
 	@PostMapping("/admin_approve_registration/{id}")
 	public String adminApproveRegistration(@PathVariable("id") Long id, Model model,
 			@ModelAttribute ClubRegistrationDto registerResultDto) {
@@ -271,6 +284,7 @@ public class AppController implements ErrorController {
 		return "redirect:/admin_view";
 	}
 
+	// Method to handle POST request for /admin_deny_registration page on per ID basis
 	@PostMapping("/admin_deny_registration/{id}")
 	public String adminDenyRegistration(@PathVariable("id") Long id, Model model,
 			@ModelAttribute ClubRegistrationDto registerResultDto) {
