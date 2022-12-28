@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+// Spring boot security configuration
 public class SecurityConfig {
 
 	@Bean
@@ -22,6 +23,7 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
+	// Admin credential configuration
 	@Configuration
 	@Order(1)
 	public static class AdminConfigurationAdapter {
@@ -46,6 +48,7 @@ public class SecurityConfig {
 		}
 	}
 
+	// Google account oauth2 login configuration
 	@Order(2)
 	@Configuration
 	public static class ApplicantConfiguration {

@@ -5,9 +5,12 @@
 <style>
 /* Internal CSS */
 body {
-    background-color: mediumseagreen;
+    background-image: linear-gradient(to right, yellow, green);
+    font-size: 18px;
 }
-
+p {
+	font-size: 18px;
+}
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -21,19 +24,16 @@ td, th {
 }
 </style>
 <!-- HTML -->
-<meta charset="UTF-8">
+<meta charset = "UTF-8">
 <title>Admin Management</title>
 </head>
 <body>
 
 	<h2>Welcome admin!</h2>
 
-	<form th:action="@{logout}">
-	    <input type="submit" value="Sign Out" /><br />
-	</form>
-	<!-- Database table where the admin can see all of the registered clubs -->
-
-	<div th:if="${ not#lists.isEmpty(allRegList)}">
+	<a th:href = "@{/admin_logout}" >Logout</a>
+	<!-- This is the database table where the admin can see all of the registered clubs -->
+	<div th:if = "${ not#lists.isEmpty(allRegList)}">
        <h2>All Registered Clubs</h2>
          <table>
            <tr>
@@ -41,20 +41,20 @@ td, th {
              <th>Status</th>
              <th>Applicant Name</th>
              <th>Applicant Email</th>
-             <th>Creation Time</th>
-             <th>Update Time</th>
+             <th>Time of Creation</th>
+             <th>Time of Update</th>
            </tr>
            <!-- Links -->
-           <tr th:each="eachReg : ${allRegList}">
+           <tr th:each = "eachReg : ${allRegList}">
              <td>
-                <a th:if="${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="'Other: ' + ${eachReg.otherClubName}"></a>
-                <a th:unless="${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="${eachReg.clubNameOption.getLabel()}"></a>
+                <a th:if = "${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="'Other: ' + ${eachReg.otherClubName}"></a>
+                <a th:unless = "${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="${eachReg.clubNameOption.getLabel()}"></a>
              </td>
-             <td th:text="${eachReg.clubRegisterStatus.getLabel()}"></td>
-             <td th:text="${eachReg.userName}"></td>
-             <td th:text="${eachReg.userEmail}"></td>
-             <td th:text="${#dates.format(eachReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-             <td th:text="${#dates.format(eachReg.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td th:text = "${eachReg.clubRegisterStatus.getLabel()}"></td>
+             <td th:text = "${eachReg.userName}"></td>
+             <td th:text = "${eachReg.userEmail}"></td>
+             <td th:text = "${#dates.format(eachReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td th:text = "${#dates.format(eachReg.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
            </tr>
          </table>
     </div>

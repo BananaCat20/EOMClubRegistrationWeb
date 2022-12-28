@@ -1,3 +1,5 @@
+// This is the club registration database file.
+
 package cs.project.eom.ClubRegistrationWeb;
 
 import java.util.Date;
@@ -9,132 +11,135 @@ import javax.persistence.*;
 @Entity
 @Table(name = "club_registration")
 public class ClubRegistrationDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private String userName;
+	@Column(nullable = false)
+	private String userName;
 
-    @Column(nullable = false)
-    private String userEmail;
+	@Column(nullable = false)
+	private String userEmail;
 
 	public enum ClubNameOption {
 
-		RAINBOW_CLUB("Rainbow Club"),
-	    ICP_CLUB("International Certificate Program (ICP)"),
-	    IMPROV_CLUB("Improv Club"),
-	    EARL_READS_BOOK_CLUB("Earl Reads Book Club"),
-	    LIONS_ROAR_NEWSPAPER_CLUB("Lion's Roar Newspaper"),
-	    ANIMAL_WELFARE_CLUB("Animal Welfare Club"),
-	    HOSA_CLUB("HOSA (Future Health Professionals)"),
-	    MEDLIFE_CLUB("MEDLIFE"),
-	    OTHER_CLUB("Other");
-	    public final String label;
+		RAINBOW_CLUB("Rainbow Club"), 
+		ICP_CLUB("International Certificate Program (ICP)"),
+		IMPROV_CLUB("Improv Club"),
+		EARL_READS_BOOK_CLUB("Earl Reads Book Club"),
+		LIONS_ROAR_NEWSPAPER_CLUB("Lion's Roar Newspaper"),
+		ANIMAL_WELFARE_CLUB("Animal Welfare Club"),
+		HOSA_CLUB("HOSA (Future Health Professionals)"),
+		MEDLIFE_CLUB("MEDLIFE"),
+		OTHER_CLUB("Other");
 
-	    private ClubNameOption(String label) {
-	        this.label = label;
-	    }
-	    public String getLabel() {
-	    	return label;
-	    }
+		public final String label;
+
+		private ClubNameOption(String label) {
+			this.label = label;
+		}
+
+		public String getLabel() {
+			return label;
+		}
 	}
 
 	public enum ClubRegisterStatus {
 
 		SUBMITTED("Submitted"),
-	    APPROVED("Approved"),
-	    DENIED("Denied"),
+		APPROVED("Approved"),
+		DENIED("Denied"),
 		CANCELLED("Cancelled");
 
-	    public final String label;
+		public final String label;
 
-	    private ClubRegisterStatus(String label) {
-	        this.label = label;
-	    }
-	    public String getLabel() {
-	    	return label;
-	    }
+		private ClubRegisterStatus(String label) {
+			this.label = label;
+		}
+
+		public String getLabel() {
+			return label;
+		}
 	}
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-    private ClubRegisterStatus clubRegisterStatus;
+	private ClubRegisterStatus clubRegisterStatus;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-    private ClubNameOption clubNameOption;
+	private ClubNameOption clubNameOption;
 
-    @Column
-    private String otherClubName;
+	@Column
+	private String otherClubName;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubExecutiveTeamMembersNames;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubExecutiveTeamMembersEmails;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubPresidentsNames;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubPresidentsEmails;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubPresidentsInstagram;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubPurpose;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubMeetingDescription;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String whoCanJoin;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubLocation;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String clubMeetInterval;
 
-    @Column
+	@Column
 	private String googleClassroomCode;
 
-    @Column
+	@Column
 	private String clubSocialMediaInfo;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String supervisorName;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String supervisorEmail;
 
-    @Column
+	@Column
 	private String note;
-    
-    @Column
+
+	@Column
 	private String feedback;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+	private Date createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date updatedDate;
-    
-    @PrePersist
-    protected void onCreate() {
-    	updatedDate = createdDate = new Date();
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+	private Date updatedDate;
 
-    @PreUpdate
-    protected void onUpdate() {
-    	updatedDate = new Date();
-    }
- 
-    // Getter and setter methods
+	@PrePersist
+	protected void onCreate() {
+		updatedDate = createdDate = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updatedDate = new Date();
+	}
+
+	// These are getter and setter methods
 	public Long getId() {
 		return id;
 	}

@@ -12,19 +12,25 @@ img {
 }
 
 body {
-	background-color: palegoldenrod;
+	background-image: linear-gradient(to right, yellow, green);
+    font-size: 18px;
 }
 
 table {
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
 	width: 100%;
+    font-size: 18px;
 }
 
 td, th {
 	border: 1px solid #1a6985;
 	text-align: left;
 	padding: 8px;
+}
+
+input {
+    font-size: 18px;
 }
 </style>
 <!-- HTML -->
@@ -33,21 +39,21 @@ td, th {
 
 	<div>
 		<h3>
-			<a><img th:src="*{loginImageLink}" style="width: 25px" /> <span
-				th:text="*{loginName}" style="color: blue">user</span> <br /> <span
-				th:text="*{loginEmail}" style="color: green">user</span></a>
+			<a><img th:src = "*{loginImageLink}" style = "width: 25px" /> <span
+				th:text = "*{loginName}" style = "color: blue">user</span> <br /> <span
+				th:text = "*{loginEmail}" style = "color: black">user</span></a>
 		</h3>
 	</div>
 
-	<form action="/register_form">
-		<input type="submit" value="Register a new Club" /><br />
+	<form action = "/register_form">
+		<input type = "submit" value = "Register a new Club" /><br />
 	</form>
 
-	<form th:action="@{logout}" method="post">
-		<input type="submit" value="Sign Out" /><br />
+	<form th:action = "@{logout}" method = "post">
+		<input type = "submit" value = "Sign Out" /><br />
 	</form>
 
-	<div th:if="${ not#lists.isEmpty(currentRegList)}">
+	<div th:if = "${ not#lists.isEmpty(currentRegList)}">
 		<h2>My Clubs</h2>
 		<table>
 			<tr>
@@ -56,22 +62,22 @@ td, th {
 				<th>Time of Creation</th>
 				<th>Time of Update</th>
 			</tr>
-			<tr th:each="currentReg : ${currentRegList}">
-				<td><a th:if="${currentReg.clubNameOption.getLabel()}=='Other'"
-					th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}"
-					th:text="'Other: ' + ${currentReg.otherClubName}"></a> <a
-					th:unless="${currentReg.clubNameOption.getLabel()}=='Other'"
-					th:href="@{/applicant_register_update/{id}(id=${currentReg.id})}"
-					th:text="${currentReg.clubNameOption.getLabel()}"></a></td>
-				<td th:text="${currentReg.clubRegisterStatus.getLabel()}"></td>
+			<tr th:each = "currentReg : ${currentRegList}">
+				<td><a th:if = "${currentReg.clubNameOption.getLabel()}=='Other'"
+					th:href = "@{/applicant_register_update/{id}(id=${currentReg.id})}"
+					th:text = "'Other: ' + ${currentReg.otherClubName}"></a> <a
+					th:unless = "${currentReg.clubNameOption.getLabel()}=='Other'"
+					th:href = "@{/applicant_register_update/{id}(id=${currentReg.id})}"
+					th:text = "${currentReg.clubNameOption.getLabel()}"></a></td>
+				<td th:text = "${currentReg.clubRegisterStatus.getLabel()}"></td>
 				<td
-					th:text="${#dates.format(currentReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					th:text = "${#dates.format(currentReg.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 				<td
-					th:text="${#dates.format(currentReg.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					th:text = "${#dates.format(currentReg.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 			</tr>
 		</table>
 	</div>
-	<div th:unless="${ not#lists.isEmpty(currentRegList)}">
+	<div th:unless = "${ not#lists.isEmpty(currentRegList)}">
 		<h2>You do not have a club applied.</h2>
 	</div>
 </body>
