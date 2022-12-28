@@ -1,54 +1,111 @@
 <!DOCTYPE html>
 <!-- This is the welcome file, which is the first page that the user will see upon going to this website -->
-<html xmlns:th = "http:/www.thymeleaf.org">
+<html>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
 <style>
-/* Internal CSS */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 body {
-	background-image: linear-gradient(to right, yellow, green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(to right, yellow, green);
+}
+ul {
+  position: relative;
+  margin: 100px auto;
+}
+ul li {
+  list-style: none;
+  text-align: center;
+}
+ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 2em;
+  padding: 5px 20px;
+  display: inline-flex;
+  font-weight: 700;
+  transition: 0.5s;
+}
+ul:hover li a {
+  color: #0002;
+}
+ul li:hover a {
+  color: #000;
+  background: rgba(255, 255, 255, 1);
+}
+ul li a:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+  color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 500px;
+  transition: letter-spacing 0.5s, left 0.5s;
+}
+ul li a:hover:before {
+  content: attr(data-text);
+  opacity: 1;
+  left: 50%;
+  letter-spacing: 10px;
+  width: 1800px;
+  height: 1800px;
+}
+ul li:nth-child(6n + 1) a:before {
+  background: rgb(252, 238, 12);
+}
+ul li:nth-child(6n + 2) a:before {
+  background: rgb(111, 177, 57);
+}
+ul li:nth-child(6n + 3) a:before {
+  background: rgb(46, 188, 234);
 }
 
 h1 {
-	font-size: 35px;
+  color: white;
+  padding-left: 5rem;
+  float: top;
+  font-size: 3em;
 }
 
-a {
-	font-size: 25px;
-}
-
-.button {
-	display: inline-block;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	color: white;
-	background-color: #3290c5;
-	border-radius: 6px;
-	outline: none;
-}
-
-.center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100px;
-}
 </style>
 <!-- HTML -->
-      <meta charset = "ISO-8859-1">
-      <title>Welcome</title>
-   	</head>
-	<body>
-	<div class = "center">
-	    <h1 >Welcome to the EOM Club Registration Web App!</h1>
-    </div>
-    <div class = "center">
-    <!-- If the user clicks on this button, they'll be taken to the admin login page -->
-    	<a class = "button" href = "/admin_view">Admin Login</a>
-	</div>
-    <div class = "center">
-    <!-- If the user clicks on this button, they'll be taken to the google sign-in page -->
-    	<a class = "button" href = "/applicant_view">Applicant Login (OCDSB account)</a>
-	</div>
-	</body>
+  <meta charset = "ISO-8859-1">
+  <title>Welcome</title>
+</head>
+
+<body>
+
+<header>
+    <h1> Welcome to EOM Club Registration Web</h1>
+
+    <ul>
+      <li><a href="/admin_view" data-text="Admin Login">Admin Login</a></li>
+      <li><a href="/applicant_view" data-text="Applicant Login">Applicant Login</a></li>
+      <li><a href="#" data-text="About">About</a></li>
+    </ul>
+</header>
+
+</body>
 </html>
