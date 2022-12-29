@@ -4,12 +4,15 @@
 <head>
 <style>
 /* Internal CSS */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
 body {
-	background-image: linear-gradient(to right, yellow, green);
+  background-image: linear-gradient(to right, yellow, green);
+  margin-left: 20px;
+  font-family: "Poppins", sans-serif;
 }
 
 label, input {
-	font-size: 17px;
+	font-size: 18px;
 	color: black;
 }
 
@@ -25,6 +28,40 @@ label {
 input {
 	padding: 5px 10px;
 }
+
+.button {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.button:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
+
+.button-text:link, .button-text:visited {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.button-text:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
 </style>
 <!-- HTML -->
 <meta charset = "ISO-8859-1">
@@ -34,78 +71,83 @@ input {
 <!-- Link: https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-radio-button -->
 <div class = "container">
 <!-- Link to the applicant view page -->
-    <h4><a href = "/applicant_view">Go Back</a></h4>
     <form action = "#" th:action = "@{/update_register_form/{id}(id=${updateRegisterForm.id})}" method="post" 
           th:object = "${updateRegisterForm}">
-    <h1>EOM Club Registration Form #<span th:text = "${updateRegisterForm.id}"></span><br/>
-        <span th:text = "${updateRegisterForm.userName}" style = "color:blue"></span></h1>
-        <input class = "delete" type = "submit" value = "Delete" onclick = "return confirm('Are you sure you want to delete?');" th:formaction="@{/delete_register_form/{id}(id=${updateRegisterForm.id})}">
-        <div class = "form-group">
-            <label>Name of Club at Earl of March</label>
-            <div th:each = "clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">
-                <div class = "custom-control custom-radio custom-control-inline">
-                    <input type = "radio" th:field = "*{clubNameOption}" th:value = "${clubName}" class="custom-control-input" required>
-                    <label class = "custom-control-label" th:for = "${#ids.prev('clubNameOption')}" th:text="${clubName.getLabel()}">ClubName</label>
-                </div>
+    
+    <h1>EOM Club Registration Form for 
+        <span th:text = "${updateRegisterForm.userName}" style = "color:blue"></span>
+    </h1>
+    <div>
+    <input class = "button" type = "button" value = "Back" onclick = "location.href='/applicant_view'">
+    <input class = "button" type = "submit" value = "Delete" onclick = "return confirm('Are you sure you want to delete?');" th:formaction="@{/delete_register_form/{id}(id=${updateRegisterForm.id})}">
+    <input class = "button" type = "submit" value = "Save">
+    <input class = "button" type = "reset">
+    </div>
+
+    <div class = "form-group">
+        <label>Name of Club at Earl of March</label>
+        <div th:each = "clubName : ${T(cs.project.eom.ClubRegistrationWeb.ClubRegistrationDto.ClubNameOption).values()}">
+            <div class = "custom-control custom-radio custom-control-inline">
+                <input type = "radio" th:field = "*{clubNameOption}" th:value = "${clubName}" class="custom-control-input" required>
+                <label class = "custom-control-label" th:for = "${#ids.prev('clubNameOption')}" th:text="${clubName.getLabel()}">ClubName</label>
             </div>
-            <input type = "text" th:field = "*{otherClubName} " size = "50"/>
         </div>
+        <input type = "text" th:field = "*{otherClubName} " size = "50"/>
+    </div>
 
-        <div class = "form-group">
-            <br/>
-            <label>Names of all Club Executive Team Members: </label>
-            <input type = "text" required th:field = "*{clubExecutiveTeamMembersNames} " size="50"/><br/><br/>
+    <div class = "form-group">
+        <br/>
+        <label>Names of all Club Executive Team Members: </label>
+        <input type = "text" required th:field = "*{clubExecutiveTeamMembersNames} " size="50"/><br/><br/>
 
-            <label>School Emails of all Club Executive Team Members: </label>
-            <input type = "text" required th:field = "*{clubExecutiveTeamMembersEmails}" size="50"/><br/><br/>
+        <label>School Emails of all Club Executive Team Members: </label>
+        <input type = "text" required th:field = "*{clubExecutiveTeamMembersEmails}" size="50"/><br/><br/>
 
-            <label>Name(s) of Club President(s): </label>
-            <input type = "text" required th:field = "*{clubPresidentsNames}" size="50"/><br/><br/>
+        <label>Name(s) of Club President(s): </label>
+        <input type = "text" required th:field = "*{clubPresidentsNames}" size="50"/><br/><br/>
 
-            <label>School Email(s) of Club President(s): </label>
-            <input type = "text" required th:field = "*{clubPresidentsEmails}" size="50"/><br/><br/>
+        <label>School Email(s) of Club President(s): </label>
+        <input type = "text" required th:field = "*{clubPresidentsEmails}" size="50"/><br/><br/>
 
-            <label>Instagram of Club President(s): </label>
-            <input type = "text" required th:field = "*{clubPresidentsInstagram}" size="50"/><br/><br/>
+        <label>Instagram of Club President(s): </label>
+        <input type = "text" required th:field = "*{clubPresidentsInstagram}" size="50"/><br/><br/>
 
-            <label>What is the purpose of this club? (What is the vision/goal?): </label>
-            <input type = "text" required th:field = "*{clubPurpose}" size="50"/><br/><br/>
+        <label>What is the purpose of this club? (What is the vision/goal?): </label>
+        <input type = "text" required th:field = "*{clubPurpose}" size="50"/><br/><br/>
 
-            <label>What will your club meetings be used for?: </label>
-            <input type = "text" required th:field = "*{clubMeetingDescription}" size="50"/><br/><br/>
+        <label>What will your club meetings be used for?: </label>
+        <input type = "text" required th:field = "*{clubMeetingDescription}" size="50"/><br/><br/>
 
-            <label>Who will be able to join your club?: </label>
-            <input type = "text" required th:field = "*{whoCanJoin}" size="50"/><br/><br/>
+        <label>Who will be able to join your club?: </label>
+        <input type = "text" required th:field = "*{whoCanJoin}" size="50"/><br/><br/>
 
-            <label>Where will your club meetings be held?: </label>
-            <input type = "text" required th:field = "*{clubLocation}" size="50"/><br/><br/>
+        <label>Where will your club meetings be held?: </label>
+        <input type = "text" required th:field = "*{clubLocation}" size="50"/><br/><br/>
 
-            <label>How often will your club meet? (example 1/week): </label>
-            <input type = "text" required th:field = "*{clubMeetInterval}" size="50"/><br/><br/>
+        <label>How often will your club meet? (example 1/week): </label>
+        <input type = "text" required th:field = "*{clubMeetInterval}" size="50"/><br/><br/>
 
-            <label>Optional: Google Classroom Code (if applicable): </label>
-            <input type = "text" th:field = "*{googleClassroomCode}" size = "50"/><br/><br/>
+        <label>Optional: Google Classroom Code (if applicable): </label>
+        <input type = "text" th:field = "*{googleClassroomCode}" size = "50"/><br/><br/>
 
-            <label>Optional: Club Social Media Info (Instagram, Facebook, Email, etc.): </label>
-            <input type = "text" th:field = "*{clubSocialMediaInfo}" size = "50"/><br/><br/>
+        <label>Optional: Club Social Media Info (Instagram, Facebook, Email, etc.): </label>
+        <input type = "text" th:field = "*{clubSocialMediaInfo}" size = "50"/><br/><br/>
 
-            <label>Name of Teacher Supervisor: </label>
-            <input type = "text" required th:field = "*{supervisorName}" size = "50"/><br/><br/>
+        <label>Name of Teacher Supervisor: </label>
+        <input type = "text" required th:field = "*{supervisorName}" size = "50"/><br/><br/>
 
-            <label>Email of Teacher Supervisor: </label>
-            <input type = "text" required th:field="*{supervisorEmail}" size="50"/><br/><br/>
+        <label>Email of Teacher Supervisor: </label>
+        <input type = "text" required th:field="*{supervisorEmail}" size="50"/><br/><br/>
 
-            <label>Notes: </label>
-            <textarea rows = "5" cols = "50" th:field = "*{note}"></textarea><br/>
-            
-            <label>Feedback: </label>
-            <textarea readonly rows = "5" cols = "50" th:field = "*{feedback}"></textarea><br/>
-        </div>
+        <label>Notes: </label>
+        <textarea rows = "5" cols = "50" th:field = "*{note}"></textarea><br/>
+        
+        <label>Feedback: </label>
+        <textarea readonly rows = "5" cols = "50" th:field = "*{feedback}"></textarea><br/>
+    </div>
 
-        <input type = "submit" value = "Save">
-        <input type = "reset">
     </form>
-    <h4><a href = "/applicant_view">Go Home</a></h4>
+    
 </div>
 </body>
 </html>
