@@ -8,13 +8,49 @@ body {
 background-image: linear-gradient(to right, yellow, green);
 font-family: "Poppins", sans-serif;
 }
+.button {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.button:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
+
+.button-text:link, .button-text:visited {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.button-text:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
 </style>
 <meta charset = "UTF-8">
 <title>View Registration</title>
 </head>
-<h4><a href = "/admin_view">Admin Main Page</a></h4>
+<h4><a class = "button-text" href = "/admin_view">Back</a></h4>
 <!-- This is all the information that the student user filled out on the club registration form -->
-<p style = "font-size:150%;" th:text = "'Club application from ' + ${registerResultDto.userName}"/>
+
+    <h1>Club application from
+        <span th:text = "${registerResultDto.userName}" style = "color:blue"></span>
+    </h1>
    <div class = "form-group" th:object = "${registerResultDto}">
        <p th:text = "'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text = "'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
@@ -38,16 +74,16 @@ font-family: "Poppins", sans-serif;
        <p th:text = "'Email of Teacher Supervisor: ' + ${registerResultDto.supervisorEmail}"/>
        <p th:text = "'Notes: ' + ${registerResultDto.note}"/>
        <!-- These are the approve and deny buttons that the admin user can click on to change the club request's status -->
-       <form action = "#" th:action = "@{/admin_approve_registration/{id}(id=${registerResultDto.id})}" method = "post" th:object = "${registerResultDto}">
+    <form action = "#" th:action = "@{/admin_approve_registration/{id}(id=${registerResultDto.id})}" method = "post" th:object = "${registerResultDto}">
 		<label>Feedback</label><br />
 		<textarea rows = "5" cols = "50" th:field = "*{feedback}"></textarea> <br><br/>
-		<input class = "approve" type = "submit" value = "Approve">
-       <input class = "deny" type = "submit" value = "Deny" th:formaction = "@{/admin_deny_registration/{id}(id=${registerResultDto.id})}">
+		<input class = "button" type = "submit" value = "Approve">
+        <input class = "button" type = "submit" value = "Deny" th:formaction = "@{/admin_deny_registration/{id}(id=${registerResultDto.id})}">
 		<br/>
 	</form>
        
    </div>
-<h4><a href = "/admin_view">Admin Main Page</a></h4>
+
 <body>
 
 </body>
