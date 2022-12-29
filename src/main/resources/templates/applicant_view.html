@@ -7,6 +7,8 @@
 <title>Applicant Home Page</title>
 <style>
 /* Internal CSS */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
 img {
 	border-radius: 50%;
 }
@@ -14,6 +16,7 @@ img {
 body {
 	background-image: linear-gradient(to right, yellow, green);
     font-size: 18px;
+    font-family: "Poppins", sans-serif;
 }
 
 table {
@@ -32,6 +35,41 @@ td, th {
 input {
     font-size: 18px;
 }
+.button-text:link, .button-text:visited {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+}
+
+.button-text:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
+
+/* unvisited link */
+.link-text:link {
+  color: green;
+}
+
+/* visited link */
+.link-text:visited {
+  color: blue;
+}
+
+/* mouse over link */
+.link-text:hover {
+  color: green;
+}
+
+/* selected link */
+.link-text:active {
+  color: green;
+}
 </style>
 <!-- HTML -->
 </head>
@@ -40,16 +78,17 @@ input {
 	<div>
 		<h3>
 			<a><img th:src = "*{loginImageLink}" style = "width: 25px" /> <span
-				th:text = "*{loginName}" style = "color: blue">user</span> <br /> <span
+				th:text = "*{loginName}" style = "color: blue">user</span> <span
 				th:text = "*{loginEmail}" style = "color: black">user</span></a>
 		</h3>
-	</div>
+	
 
-	<form action = "/register_form">
-		<input type = "submit" value = "Register a new Club" /><br />
-	</form>
+    
+        <a class = "button-text" href = "/register_form">Register a new Club</a>
+        <a class = "button-text" href = "#" onclick="document.getElementById('logout-form').submit()" >Logout</a>
+    </div>
 
-	<form th:action = "@{logout}" method = "post">
+	<form hidden id = "logout-form" th:action = "@{logout}" method = "post">
 		<input type = "submit" value = "Sign Out" /><br />
 	</form>
 
@@ -63,9 +102,10 @@ input {
 				<th>Time of Update</th>
 			</tr>
 			<tr th:each = "currentReg : ${currentRegList}">
-				<td><a th:if = "${currentReg.clubNameOption.getLabel()}=='Other'"
+				<td><a class = "link-text" th:if = "${currentReg.clubNameOption.getLabel()}=='Other'"
 					th:href = "@{/applicant_register_update/{id}(id=${currentReg.id})}"
-					th:text = "'Other: ' + ${currentReg.otherClubName}"></a> <a
+					th:text = "'Other: ' + ${currentReg.otherClubName}"></a>
+                    <a class = "link-text" 
 					th:unless = "${currentReg.clubNameOption.getLabel()}=='Other'"
 					th:href = "@{/applicant_register_update/{id}(id=${currentReg.id})}"
 					th:text = "${currentReg.clubNameOption.getLabel()}"></a></td>

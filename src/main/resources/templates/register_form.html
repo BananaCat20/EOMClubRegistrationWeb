@@ -4,6 +4,7 @@
 <head>
 <style>
 /* Internal CSS */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
 body, form, p, div, select {
 	background-image: linear-gradient(to right, yellow, green);
 	min-height: 100%;
@@ -14,9 +15,10 @@ body, div, form, input, select, textarea, p {
 	margin: 0;
 	outline: none;
 	font-family: Times New Roman;
-	font-size: 19px;
+	font-size: 18px;
 	color: black;
 	line-height: 22px;
+    font-family: "Poppins", sans-serif;
 }
 
 h1 {
@@ -38,7 +40,7 @@ form {
 	width: 100%;
 	padding: 20px;
 	border-radius: 6px;
-	background: forestgreen;
+	background-image: linear-gradient(to left, yellow, green);
 	box-shadow: 0 0 30px 0 yellow;
 }
 
@@ -82,7 +84,7 @@ textarea {
 .item input:hover, .item select:hover, .item textarea:hover {
 	border: 1px solid transparent;
 	box-shadow: 0 0 8px 0 black;
-	color: #8ebf42;
+	color: black;
 }
 
 .item {
@@ -96,18 +98,43 @@ textarea {
 }
 
 .button {
-	width: 150px;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	font-size: 20px;
-	color: black;
-	cursor: pointer;
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.button:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
 }
 
 a {
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
+}
+
+.button-text:link, .button-text:visited {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  margin-left: 20px;
+}
+
+.button-text:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
 }
 </style>
 <!-- HTML -->
@@ -117,7 +144,7 @@ a {
 <body>
 <!--Link: https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-radio-button-->
   <h4>
-    <a href = "/applicant_view">Go Back</a>
+    <a class = "button-text" href = "/applicant_view">Back</a>
   </h4>
   
   <div class = "testbox">
@@ -132,9 +159,7 @@ a {
                 </div>
             </div>
             <input type = "text" th:field = "*{otherClubName} " size = "50"/>
-        </div>
 
-		<div class = "item">
 		    <br/><br/>
 	        <label>Names of all Club Executive Team Members</label><br/>
 	        <input type = "text" required th:field = "*{clubExecutiveTeamMembersNames} " size = "50"/><br/><br/>
@@ -186,8 +211,6 @@ a {
         <input class = "button" type = "reset">
     </form>
   </div>
-  <h4>
-    <a href = "/applicant_view">Go Home</a>
-  </h4>
+
 </body>
 </html>

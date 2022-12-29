@@ -4,9 +4,11 @@
 <head>
 <style>
 /* Internal CSS */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
 body {
     background-image: linear-gradient(to right, yellow, green);
     font-size: 18px;
+    font-family: "Poppins", sans-serif;
 }
 p {
 	font-size: 18px;
@@ -22,6 +24,41 @@ td, th {
   text-align: left;
   padding: 8px;
 }
+.button-text:link, .button-text:visited {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+}
+
+.button-text:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
+
+/* unvisited link */
+.link-text:link {
+  color: green;
+}
+
+/* visited link */
+.link-text:visited {
+  color: blue;
+}
+
+/* mouse over link */
+.link-text:hover {
+  color: green;
+}
+
+/* selected link */
+.link-text:active {
+  color: green;
+}
 </style>
 <!-- HTML -->
 <meta charset = "UTF-8">
@@ -29,9 +66,9 @@ td, th {
 </head>
 <body>
 
-	<h2>Welcome admin!</h2>
+	<h1>Welcome admin!</h1>
 
-	<a th:href = "@{/admin_logout}" >Logout</a>
+	<a class = "button-text" th:href = "@{/admin_logout}" >Logout</a>
 	<!-- This is the database table where the admin can see all of the registered clubs -->
 	<div th:if = "${ not#lists.isEmpty(allRegList)}">
        <h2>All Registered Clubs</h2>
@@ -47,8 +84,8 @@ td, th {
            <!-- Links -->
            <tr th:each = "eachReg : ${allRegList}">
              <td>
-                <a th:if = "${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="'Other: ' + ${eachReg.otherClubName}"></a>
-                <a th:unless = "${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="${eachReg.clubNameOption.getLabel()}"></a>
+                <a class = "link-text" th:if = "${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="'Other: ' + ${eachReg.otherClubName}"></a>
+                <a class = "link-text" th:unless = "${eachReg.clubNameOption.getLabel()}=='Other'" th:href="@{/admin_view_registration/{id}(id=${eachReg.id})}" th:text="${eachReg.clubNameOption.getLabel()}"></a>
              </td>
              <td th:text = "${eachReg.clubRegisterStatus.getLabel()}"></td>
              <td th:text = "${eachReg.userName}"></td>

@@ -4,8 +4,10 @@
 <head>
 <style>
 /* Internal CSS */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
 body {
 	background-image: linear-gradient(to right, yellow, green);
+  font-family: "Poppins", sans-serif;
 }
 
 p {
@@ -25,16 +27,32 @@ label {
 input {
 	padding: 5px 10px;
 }
+.button-text:link, .button-text:visited {
+  background-color: white;
+  color: black;
+  border: 2px groove rgb(46, 188, 234);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.button-text:hover, .button-text:active {
+  background-color: rgb(46, 188, 234);
+  color: white;
+}
 </style>
 <!-- HTML -->
 <meta charset = "UTF-8">
 <title>Registration Results</title>
 </head>
 <h4><!-- Link to the applicant view page -->
-<a href = "/applicant_view">Go Home</a>
+<a class = "button-text" href = "/applicant_view">Back</a>
 </h4>
 <!-- These are the user's answers to the questions on the club registration form -->
-<p style = "font-size:150%;" th:text = "${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
+<p style = "font-size:150%; color:blue;" th:text = "${update} ? 'The following application has been updated!' : 'The following application has been submitted!'"/>
    <div class = "form-group" th:object = "${registerResultDto}">
        <p th:text = "'Created date: ' + ${#dates.format(registerResultDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}"/>
        <p th:text = "'Updated date: ' + ${#dates.format(registerResultDto.updatedDate, 'yyyy-MM-dd HH:mm:ss')}"/>
@@ -57,10 +75,7 @@ input {
        <p th:text = "'Email of Teacher Supervisor: ' + ${registerResultDto.supervisorEmail}"/>
        <p th:text = "'Notes: ' + ${registerResultDto.note}"/>
    </div>
-<h4>
-<!-- Link to the applicant view page -->
-<a href = "/applicant_view">Go Home</a>
-</h4>
+
 <body>
 </body>
 </html>
