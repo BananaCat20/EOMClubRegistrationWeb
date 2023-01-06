@@ -27,7 +27,7 @@ public class SecurityConfig {
 	// Google account oauth2 login configuration
 	@Configuration
 	@Order(1)
-	public static class AdminConfigurationAdapter {
+	public static class ConfigAdapter1 {
 		@Bean
 		public SecurityFilterChain filterChainApplicant(HttpSecurity http) throws Exception {
 			http.authorizeRequests().antMatchers("/applicant*").authenticated().and().oauth2Login().and().logout()
@@ -40,7 +40,7 @@ public class SecurityConfig {
 	// Admin credential configuration
 	@Configuration
 	@Order(2)
-	public static class  ApplicantConfiguration{
+	public static class  ConfigAdapter2 {
 		@Bean
 		public UserDetailsService userDetailsServiceAdmin() {
 			UserDetails user = User.withUsername("admin").password(encoder().encode("adminPass")).roles("ADMIN")
