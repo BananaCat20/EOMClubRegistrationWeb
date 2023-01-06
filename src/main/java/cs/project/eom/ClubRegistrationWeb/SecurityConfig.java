@@ -23,10 +23,24 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
-	// Admin credential configuration
+
+	// Google account oauth2 login configuration
 	@Configuration
 	@Order(1)
 	public static class AdminConfigurationAdapter {
+		@Bean
+		public SecurityFilterChain filterChainApplicant(HttpSecurity http) throws Exception {
+			http.authorizeRequests().antMatchers("/applicant*").authenticated().and().oauth2Login().and().logout()
+					.logoutSuccessUrl("/welcome").deleteCookies("JSESSIONID").and().exceptionHandling()
+					.accessDeniedPage("/403");
+			return http.build();
+		}
+	}
+	
+	// Admin credential configuration
+	@Configuration
+	@Order(2)
+	public static class  ApplicantConfiguration{
 		@Bean
 		public UserDetailsService userDetailsServiceAdmin() {
 			UserDetails user = User.withUsername("admin").password(encoder().encode("adminPass")).roles("ADMIN")
@@ -48,16 +62,5 @@ public class SecurityConfig {
 		}
 	}
 
-	// Google account oauth2 login configuration
-	@Order(2)
-	@Configuration
-	public static class ApplicantConfiguration {
-		@Bean
-		public SecurityFilterChain filterChainApplicant(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/applicant*").authenticated().and().oauth2Login().and().logout()
-					.logoutSuccessUrl("/welcome").deleteCookies("JSESSIONID").and().exceptionHandling()
-					.accessDeniedPage("/403");
-			return http.build();
-		}
-	}
 }
+
