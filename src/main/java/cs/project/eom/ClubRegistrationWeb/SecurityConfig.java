@@ -37,7 +37,7 @@ public class SecurityConfig {
 		@Bean
 		public SecurityFilterChain filterChainAdmin(HttpSecurity http) throws Exception {
 			http.antMatcher("/admin*").authorizeRequests().anyRequest().hasRole("ADMIN")
-					// log in
+					// login
 					.and().formLogin().loginPage("/loginAdmin").loginProcessingUrl("/admin_login")
 					.failureUrl("/loginAdmin?error=loginError").defaultSuccessUrl("/admin_view")
 					// logout
